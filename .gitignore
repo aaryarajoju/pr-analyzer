@@ -1,0 +1,24 @@
+
+projects.csv
+
+dataset_raw.jsonl
+evaluations.jsonl
+
+__pycache__/
+*.pyc
+.venv/
+venv/
+.env
+
+.DS_Store
+
+.vscode/
+
+.idea/
+
+# Parsers
+parsers/node_modules/
+parsers/.bundle/
+parsers/vendor/
+
+

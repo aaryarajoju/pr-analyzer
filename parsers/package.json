@@ -1,0 +1,11 @@
+{
+  "name": "pr-analyzer-parsers",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "typescript": "^5.9.0"
+  },
+  "devDependencies": {
+    "tsx": "^4.19.0"
+  }
+}

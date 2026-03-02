@@ -1,0 +1,4 @@
+# Dependencies for ruby_parser.rb
+# Run: bundle config set --local path 'vendor/bundle'  (isolates gems, avoids cross-project warnings)
+source "https://rubygems.org"
+gem "prism"
