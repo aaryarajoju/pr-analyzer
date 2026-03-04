@@ -20,6 +20,8 @@ from typing import Optional
 
 import requests
 
+from static_analyzer.run_all import run_static_analysis
+
 # Configure logging
 logging.basicConfig(
     level=logging.INFO,
@@ -282,10 +284,16 @@ def main() -> None:
             logger.info("Processing project %s (line %d)", project_id, line_num)
 
             parser_output: dict = {}
-            if diff and (has_rb_files(diff) or has_ts_files(diff)):
+            full_files = record.get("full_files")
+            if full_files:
+                # dataset_v2.jsonl: run full static analysis via static_analyzer package
+                logger.info("Running static analysis on %d full file(s)", len(full_files))
+                parser_output = run_static_analysis(full_files)
+            elif diff and (has_rb_files(diff) or has_ts_files(diff)):
+                # dataset_raw.jsonl: fall back to diff fragment analysis
                 parser_output = run_parsers_for_diff(diff)
             else:
-                logger.info("No .rb or .ts/.tsx files in diff, skipping parser")
+                logger.info("No .rb or .ts/.tsx files found, skipping parser")
 
             prompt = build_prompt(parser_output, wiki_content, diff)
             try:
