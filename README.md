@@ -50,8 +50,10 @@ The default model is `deepseek-coder-v2:16b-lite-instruct-q4_K_M`. Use `--model 
 | Script | Purpose | Output |
 |--------|---------|--------|
 | **extract_data.py** | Fetch PR diffs and Wiki content from GitHub | `dataset_raw.jsonl` |
+| **extract_data_v2.py** | Same + full file content for static analysis | `dataset_v2.jsonl` |
 | **analyze_violations.py** | Quick violation counts (CSV/MD table) for meetings | `violations_report.csv`, `.md` |
 | **evaluate_design.py** | Full pipeline with parsers; narrative evaluation | `evaluations.jsonl` |
+| **evaluate_design_hybrid.py** | Hybrid: static analysis → LLM validation | `evaluations_hybrid.jsonl` |
 
 ### extract_data.py
 
@@ -99,6 +101,49 @@ python evaluate_design.py --input dataset_raw.jsonl --output evaluations.jsonl
 
 ---
 
+## Hybrid Static + LLM Pipeline (NEW-DESIGN.md)
+
+The hybrid pipeline adds deterministic static analysis before the LLM step.
+
+### Recommended workflow
+
+```bash
+# Step 1 – Extract data + full file content for changed paths
+python extract_data_v2.py --input projects.csv --output dataset_v2.jsonl
+
+# Step 2 – Run hybrid analysis (static first, then LLM validates)
+python evaluate_design_hybrid.py --input dataset_v2.jsonl --output evaluations_hybrid.jsonl
+
+# Optional: limit to first 10 projects for testing
+python evaluate_design_hybrid.py --input dataset_v2.jsonl -n 10
+
+# Fallback: diff-only + LLM-only mode (no static analysis)
+python evaluate_design_hybrid.py --input dataset_raw.jsonl --no-static
+```
+
+### Static analysis only (no LLM, for debugging)
+
+```bash
+# Run on a specific Ruby file
+cd parsers
+python controller.py --static path/to/file.rb
+
+# Or via the Python module
+python -m static_analyzer.run_all -f my_files.json
+```
+
+### Principles detected
+
+| Principle | Static | LLM role |
+|-----------|--------|----------|
+| SRP | Method count + instantiation count | Validates + refines |
+| DRY | Structural-hash clone detection | Validates + extends |
+| LoD | Regex call-chain depth (≥ 3 levels) | Validates |
+| CMO | Class-method / total-method ratio | Validates |
+| LSP | Arity mismatch in overrides | Validates (LLM-primary) |
+
+---
+
 ## projects.csv Format
 
 Required columns:
@@ -131,17 +176,19 @@ npm install
 
 | File | Produced by | Description |
 |------|-------------|-------------|
-| dataset_raw.jsonl | extract_data | One JSON object per project (diff, wiki, feedback) |
-| violations_report.csv | analyze_violations | Table: project_id, SRP, DRY, LoD, CMO, total, confidence, summary |
-| violations_report.md | analyze_violations | Markdown table + summary stats |
-| evaluations.jsonl | evaluate_design | One JSON per project with narrative evaluation |
+| dataset_raw.jsonl | extract_data | One JSON per project (diff, wiki, feedback) |
+| dataset_v2.jsonl | extract_data_v2 | Same + `full_files` (full changed file content) |
+| violations_report.csv | analyze_violations | LLM-only: SRP/DRY/LoD/CMO counts |
+| violations_report.md | analyze_violations | Markdown table + aggregate stats |
+| evaluations.jsonl | evaluate_design | Free-form narrative evaluation (diff-only) |
+| evaluations_hybrid.jsonl | evaluate_design_hybrid | Hybrid: static findings + LLM validation |
 
 ---
 
 ## Documentation
 
-- **DESIGN.md** – System design, prompts, and how each principle is evaluated
-- **new-design.md** – Planned hybrid static + LLM architecture (not yet implemented)
+- **OLD-DESIGN.md** – Original system design, prompts, and how each principle is evaluated
+- **NEW-DESIGN.md** – Hybrid static + LLM architecture specification (implemented)
 - **parsers/README.md** – Parser setup and usage
 
 ---
