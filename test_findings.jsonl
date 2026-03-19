@@ -1,0 +1,2528 @@
+{
+  "project_id": "E2541",
+  "parser_output": {
+    "lod": {
+      "violations": [
+        {
+          "file": "app/controllers/assessment360_controller.rb",
+          "class_name": "Assessment360Controller",
+          "method_name": "all_students_all_reviews",
+          "line": 13,
+          "chain_depth": 3,
+          "description": "Method `all_students_all_reviews` in `Assessment360Controller` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/controllers/assessment360_controller.rb",
+          "class_name": "Assessment360Controller",
+          "method_name": "all_students_all_reviews",
+          "line": 13,
+          "chain_depth": 3,
+          "description": "Method `all_students_all_reviews` in `Assessment360Controller` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/controllers/assessment360_controller.rb",
+          "class_name": "Assessment360Controller",
+          "method_name": "all_students_all_reviews",
+          "line": 13,
+          "chain_depth": 3,
+          "description": "Method `all_students_all_reviews` in `Assessment360Controller` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/controllers/assessment360_controller.rb",
+          "class_name": "Assessment360Controller",
+          "method_name": "avg_review_calc_per_student",
+          "line": 77,
+          "chain_depth": 3,
+          "description": "Method `avg_review_calc_per_student` in `Assessment360Controller` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/controllers/assessment360_controller.rb",
+          "class_name": "Assessment360Controller",
+          "method_name": "course_student_grade_summary",
+          "line": 89,
+          "chain_depth": 3,
+          "description": "Method `course_student_grade_summary` in `Assessment360Controller` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/controllers/assessment360_controller.rb",
+          "class_name": "Assessment360Controller",
+          "method_name": "course_student_grade_summary",
+          "line": 89,
+          "chain_depth": 3,
+          "description": "Method `course_student_grade_summary` in `Assessment360Controller` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/controllers/assessment360_controller.rb",
+          "class_name": "Assessment360Controller",
+          "method_name": "course_student_grade_summary",
+          "line": 89,
+          "chain_depth": 3,
+          "description": "Method `course_student_grade_summary` in `Assessment360Controller` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/controllers/assessment360_controller.rb",
+          "class_name": "Assessment360Controller",
+          "method_name": "calc_overall_review_info",
+          "line": 155,
+          "chain_depth": 3,
+          "description": "Method `calc_overall_review_info` in `Assessment360Controller` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/controllers/grades_controller.rb",
+          "class_name": "GradesController",
+          "method_name": "action_allowed?",
+          "line": 12,
+          "chain_depth": 3,
+          "description": "Method `action_allowed?` in `GradesController` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/controllers/grades_controller.rb",
+          "class_name": "GradesController",
+          "method_name": "view_my_scores",
+          "line": 58,
+          "chain_depth": 3,
+          "description": "Method `view_my_scores` in `GradesController` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/controllers/grades_controller.rb",
+          "class_name": "GradesController",
+          "method_name": "view_my_scores",
+          "line": 58,
+          "chain_depth": 3,
+          "description": "Method `view_my_scores` in `GradesController` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/controllers/grades_controller.rb",
+          "class_name": "GradesController",
+          "method_name": "view_my_scores",
+          "line": 58,
+          "chain_depth": 3,
+          "description": "Method `view_my_scores` in `GradesController` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/controllers/grades_controller.rb",
+          "class_name": "GradesController",
+          "method_name": "instructor_review",
+          "line": 128,
+          "chain_depth": 3,
+          "description": "Method `instructor_review` in `GradesController` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/controllers/grades_controller.rb",
+          "class_name": "GradesController",
+          "method_name": "instructor_review",
+          "line": 128,
+          "chain_depth": 3,
+          "description": "Method `instructor_review` in `GradesController` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/controllers/grades_controller.rb",
+          "class_name": "GradesController",
+          "method_name": "update",
+          "line": 157,
+          "chain_depth": 3,
+          "description": "Method `update` in `GradesController` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/controllers/grades_controller.rb",
+          "class_name": "GradesController",
+          "method_name": "update",
+          "line": 157,
+          "chain_depth": 3,
+          "description": "Method `update` in `GradesController` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/controllers/grades_controller.rb",
+          "class_name": "GradesController",
+          "method_name": "update",
+          "line": 157,
+          "chain_depth": 3,
+          "description": "Method `update` in `GradesController` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/controllers/grades_controller.rb",
+          "class_name": "GradesController",
+          "method_name": "redirect_when_disallowed",
+          "line": 214,
+          "chain_depth": 3,
+          "description": "Method `redirect_when_disallowed` in `GradesController` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/controllers/grades_controller.rb",
+          "class_name": "GradesController",
+          "method_name": "redirect_when_disallowed",
+          "line": 214,
+          "chain_depth": 3,
+          "description": "Method `redirect_when_disallowed` in `GradesController` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/controllers/join_team_requests_controller.rb",
+          "class_name": "JoinTeamRequestsController",
+          "method_name": "create",
+          "line": 34,
+          "chain_depth": 3,
+          "description": "Method `create` in `JoinTeamRequestsController` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/controllers/lottery_controller.rb",
+          "class_name": "LotteryController",
+          "method_name": "construct_users_bidding_info",
+          "line": 48,
+          "chain_depth": 3,
+          "description": "Method `construct_users_bidding_info` in `LotteryController` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/controllers/lottery_controller.rb",
+          "class_name": "LotteryController",
+          "method_name": "match_new_teams_to_topics",
+          "line": 117,
+          "chain_depth": 4,
+          "description": "Method `match_new_teams_to_topics` in `LotteryController` has a call chain of depth 4 (max 2)."
+        },
+        {
+          "file": "app/controllers/participants_controller.rb",
+          "class_name": "ParticipantsController",
+          "method_name": "add",
+          "line": 32,
+          "chain_depth": 3,
+          "description": "Method `add` in `ParticipantsController` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/controllers/participants_controller.rb",
+          "class_name": "ParticipantsController",
+          "method_name": "add",
+          "line": 32,
+          "chain_depth": 3,
+          "description": "Method `add` in `ParticipantsController` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/controllers/participants_controller.rb",
+          "class_name": "ParticipantsController",
+          "method_name": "update_authorizations",
+          "line": 58,
+          "chain_depth": 4,
+          "description": "Method `update_authorizations` in `ParticipantsController` has a call chain of depth 4 (max 2)."
+        },
+        {
+          "file": "app/controllers/participants_controller.rb",
+          "class_name": "ParticipantsController",
+          "method_name": "destroy",
+          "line": 77,
+          "chain_depth": 3,
+          "description": "Method `destroy` in `ParticipantsController` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/controllers/participants_controller.rb",
+          "class_name": "ParticipantsController",
+          "method_name": "destroy",
+          "line": 77,
+          "chain_depth": 4,
+          "description": "Method `destroy` in `ParticipantsController` has a call chain of depth 4 (max 2)."
+        },
+        {
+          "file": "app/controllers/participants_controller.rb",
+          "class_name": "ParticipantsController",
+          "method_name": "bequeath_all",
+          "line": 117,
+          "chain_depth": 3,
+          "description": "Method `bequeath_all` in `ParticipantsController` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/controllers/participants_controller.rb",
+          "class_name": "ParticipantsController",
+          "method_name": "get_user_info",
+          "line": 205,
+          "chain_depth": 3,
+          "description": "Method `get_user_info` in `ParticipantsController` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/controllers/participants_controller.rb",
+          "class_name": "ParticipantsController",
+          "method_name": "get_user_info",
+          "line": 205,
+          "chain_depth": 3,
+          "description": "Method `get_user_info` in `ParticipantsController` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/controllers/participants_controller.rb",
+          "class_name": "ParticipantsController",
+          "method_name": "get_signup_topics_for_assignment",
+          "line": 221,
+          "chain_depth": 3,
+          "description": "Method `get_signup_topics_for_assignment` in `ParticipantsController` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/controllers/participants_controller.rb",
+          "class_name": "ParticipantsController",
+          "method_name": "get_signup_topics_for_assignment",
+          "line": 221,
+          "chain_depth": 3,
+          "description": "Method `get_signup_topics_for_assignment` in `ParticipantsController` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/controllers/review_mapping_controller.rb",
+          "class_name": "ReviewMappingController",
+          "method_name": "add_calibration",
+          "line": 27,
+          "chain_depth": 3,
+          "description": "Method `add_calibration` in `ReviewMappingController` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/controllers/review_mapping_controller.rb",
+          "class_name": "ReviewMappingController",
+          "method_name": "add_calibration",
+          "line": 27,
+          "chain_depth": 3,
+          "description": "Method `add_calibration` in `ReviewMappingController` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/controllers/review_mapping_controller.rb",
+          "class_name": "ReviewMappingController",
+          "method_name": "add_reviewer",
+          "line": 54,
+          "chain_depth": 3,
+          "description": "Method `add_reviewer` in `ReviewMappingController` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/controllers/review_mapping_controller.rb",
+          "class_name": "ReviewMappingController",
+          "method_name": "assign_reviewer_dynamically",
+          "line": 93,
+          "chain_depth": 3,
+          "description": "Method `assign_reviewer_dynamically` in `ReviewMappingController` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/controllers/review_mapping_controller.rb",
+          "class_name": "ReviewMappingController",
+          "method_name": "assign_reviewer_dynamically",
+          "line": 93,
+          "chain_depth": 3,
+          "description": "Method `assign_reviewer_dynamically` in `ReviewMappingController` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/controllers/review_mapping_controller.rb",
+          "class_name": "ReviewMappingController",
+          "method_name": "check_outstanding_reviews?",
+          "line": 157,
+          "chain_depth": 3,
+          "description": "Method `check_outstanding_reviews?` in `ReviewMappingController` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/controllers/review_mapping_controller.rb",
+          "class_name": "ReviewMappingController",
+          "method_name": "check_outstanding_reviews?",
+          "line": 157,
+          "chain_depth": 4,
+          "description": "Method `check_outstanding_reviews?` in `ReviewMappingController` has a call chain of depth 4 (max 2)."
+        },
+        {
+          "file": "app/controllers/review_mapping_controller.rb",
+          "class_name": "ReviewMappingController",
+          "method_name": "add_metareviewer",
+          "line": 192,
+          "chain_depth": 3,
+          "description": "Method `add_metareviewer` in `ReviewMappingController` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/controllers/review_mapping_controller.rb",
+          "class_name": "ReviewMappingController",
+          "method_name": "add_metareviewer",
+          "line": 192,
+          "chain_depth": 3,
+          "description": "Method `add_metareviewer` in `ReviewMappingController` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/controllers/review_mapping_controller.rb",
+          "class_name": "ReviewMappingController",
+          "method_name": "add_metareviewer",
+          "line": 192,
+          "chain_depth": 3,
+          "description": "Method `add_metareviewer` in `ReviewMappingController` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/controllers/review_mapping_controller.rb",
+          "class_name": "ReviewMappingController",
+          "method_name": "delete_all_metareviewers",
+          "line": 253,
+          "chain_depth": 3,
+          "description": "Method `delete_all_metareviewers` in `ReviewMappingController` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/controllers/review_mapping_controller.rb",
+          "class_name": "ReviewMappingController",
+          "method_name": "delete_all_metareviewers",
+          "line": 253,
+          "chain_depth": 3,
+          "description": "Method `delete_all_metareviewers` in `ReviewMappingController` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/controllers/review_mapping_controller.rb",
+          "class_name": "ReviewMappingController",
+          "method_name": "delete_all_metareviewers",
+          "line": 253,
+          "chain_depth": 3,
+          "description": "Method `delete_all_metareviewers` in `ReviewMappingController` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/controllers/review_mapping_controller.rb",
+          "class_name": "ReviewMappingController",
+          "method_name": "delete_all_metareviewers",
+          "line": 253,
+          "chain_depth": 3,
+          "description": "Method `delete_all_metareviewers` in `ReviewMappingController` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/controllers/review_mapping_controller.rb",
+          "class_name": "ReviewMappingController",
+          "method_name": "unsubmit_review",
+          "line": 278,
+          "chain_depth": 4,
+          "description": "Method `unsubmit_review` in `ReviewMappingController` has a call chain of depth 4 (max 2)."
+        },
+        {
+          "file": "app/controllers/review_mapping_controller.rb",
+          "class_name": "ReviewMappingController",
+          "method_name": "unsubmit_review",
+          "line": 278,
+          "chain_depth": 3,
+          "description": "Method `unsubmit_review` in `ReviewMappingController` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/controllers/review_mapping_controller.rb",
+          "class_name": "ReviewMappingController",
+          "method_name": "unsubmit_review",
+          "line": 278,
+          "chain_depth": 3,
+          "description": "Method `unsubmit_review` in `ReviewMappingController` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/controllers/review_mapping_controller.rb",
+          "class_name": "ReviewMappingController",
+          "method_name": "delete_reviewer",
+          "line": 291,
+          "chain_depth": 3,
+          "description": "Method `delete_reviewer` in `ReviewMappingController` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/controllers/review_mapping_controller.rb",
+          "class_name": "ReviewMappingController",
+          "method_name": "delete_reviewer",
+          "line": 291,
+          "chain_depth": 3,
+          "description": "Method `delete_reviewer` in `ReviewMappingController` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/controllers/review_mapping_controller.rb",
+          "class_name": "ReviewMappingController",
+          "method_name": "delete_metareviewer",
+          "line": 312,
+          "chain_depth": 3,
+          "description": "Method `delete_metareviewer` in `ReviewMappingController` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/controllers/review_mapping_controller.rb",
+          "class_name": "ReviewMappingController",
+          "method_name": "delete_metareviewer",
+          "line": 312,
+          "chain_depth": 3,
+          "description": "Method `delete_metareviewer` in `ReviewMappingController` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/controllers/review_mapping_controller.rb",
+          "class_name": "ReviewMappingController",
+          "method_name": "delete_metareviewer",
+          "line": 312,
+          "chain_depth": 3,
+          "description": "Method `delete_metareviewer` in `ReviewMappingController` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/controllers/review_mapping_controller.rb",
+          "class_name": "ReviewMappingController",
+          "method_name": "delete_metareviewer",
+          "line": 312,
+          "chain_depth": 3,
+          "description": "Method `delete_metareviewer` in `ReviewMappingController` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/controllers/review_mapping_controller.rb",
+          "class_name": "ReviewMappingController",
+          "method_name": "delete_metareview",
+          "line": 326,
+          "chain_depth": 3,
+          "description": "Method `delete_metareview` in `ReviewMappingController` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/controllers/review_mapping_controller.rb",
+          "class_name": "ReviewMappingController",
+          "method_name": "automatic_review_mapping",
+          "line": 344,
+          "chain_depth": 3,
+          "description": "Method `automatic_review_mapping` in `ReviewMappingController` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/controllers/review_mapping_controller.rb",
+          "class_name": "ReviewMappingController",
+          "method_name": "save_grade_and_comment_for_reviewer",
+          "line": 433,
+          "chain_depth": 3,
+          "description": "Method `save_grade_and_comment_for_reviewer` in `ReviewMappingController` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/controllers/review_mapping_controller.rb",
+          "class_name": "ReviewMappingController",
+          "method_name": "assign_reviewers_for_team",
+          "line": 474,
+          "chain_depth": 3,
+          "description": "Method `assign_reviewers_for_team` in `ReviewMappingController` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/controllers/review_mapping_controller.rb",
+          "class_name": "ReviewMappingController",
+          "method_name": "peer_review_strategy",
+          "line": 515,
+          "chain_depth": 3,
+          "description": "Method `peer_review_strategy` in `ReviewMappingController` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/controllers/sign_up_sheet_controller.rb",
+          "class_name": "SignUpSheetController",
+          "method_name": "list",
+          "line": 187,
+          "chain_depth": 3,
+          "description": "Method `list` in `SignUpSheetController` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/controllers/sign_up_sheet_controller.rb",
+          "class_name": "SignUpSheetController",
+          "method_name": "list",
+          "line": 187,
+          "chain_depth": 3,
+          "description": "Method `list` in `SignUpSheetController` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/controllers/sign_up_sheet_controller.rb",
+          "class_name": "SignUpSheetController",
+          "method_name": "list",
+          "line": 187,
+          "chain_depth": 3,
+          "description": "Method `list` in `SignUpSheetController` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/controllers/sign_up_sheet_controller.rb",
+          "class_name": "SignUpSheetController",
+          "method_name": "list",
+          "line": 187,
+          "chain_depth": 3,
+          "description": "Method `list` in `SignUpSheetController` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/controllers/sign_up_sheet_controller.rb",
+          "class_name": "SignUpSheetController",
+          "method_name": "list",
+          "line": 187,
+          "chain_depth": 3,
+          "description": "Method `list` in `SignUpSheetController` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/controllers/sign_up_sheet_controller.rb",
+          "class_name": "SignUpSheetController",
+          "method_name": "list",
+          "line": 187,
+          "chain_depth": 3,
+          "description": "Method `list` in `SignUpSheetController` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/controllers/sign_up_sheet_controller.rb",
+          "class_name": "SignUpSheetController",
+          "method_name": "delete_signup",
+          "line": 267,
+          "chain_depth": 3,
+          "description": "Method `delete_signup` in `SignUpSheetController` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/controllers/sign_up_sheet_controller.rb",
+          "class_name": "SignUpSheetController",
+          "method_name": "delete_signup",
+          "line": 267,
+          "chain_depth": 4,
+          "description": "Method `delete_signup` in `SignUpSheetController` has a call chain of depth 4 (max 2)."
+        },
+        {
+          "file": "app/controllers/sign_up_sheet_controller.rb",
+          "class_name": "SignUpSheetController",
+          "method_name": "delete_signup",
+          "line": 267,
+          "chain_depth": 4,
+          "description": "Method `delete_signup` in `SignUpSheetController` has a call chain of depth 4 (max 2)."
+        },
+        {
+          "file": "app/controllers/sign_up_sheet_controller.rb",
+          "class_name": "SignUpSheetController",
+          "method_name": "delete_signup_as_instructor",
+          "line": 290,
+          "chain_depth": 3,
+          "description": "Method `delete_signup_as_instructor` in `SignUpSheetController` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/controllers/sign_up_sheet_controller.rb",
+          "class_name": "SignUpSheetController",
+          "method_name": "delete_signup_as_instructor",
+          "line": 290,
+          "chain_depth": 4,
+          "description": "Method `delete_signup_as_instructor` in `SignUpSheetController` has a call chain of depth 4 (max 2)."
+        },
+        {
+          "file": "app/controllers/sign_up_sheet_controller.rb",
+          "class_name": "SignUpSheetController",
+          "method_name": "delete_signup_as_instructor",
+          "line": 290,
+          "chain_depth": 4,
+          "description": "Method `delete_signup_as_instructor` in `SignUpSheetController` has a call chain of depth 4 (max 2)."
+        },
+        {
+          "file": "app/controllers/sign_up_sheet_controller.rb",
+          "class_name": "SignUpSheetController",
+          "method_name": "set_priority",
+          "line": 311,
+          "chain_depth": 3,
+          "description": "Method `set_priority` in `SignUpSheetController` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/controllers/sign_up_sheet_controller.rb",
+          "class_name": "SignUpSheetController",
+          "method_name": "set_priority",
+          "line": 311,
+          "chain_depth": 3,
+          "description": "Method `set_priority` in `SignUpSheetController` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/controllers/sign_up_sheet_controller.rb",
+          "class_name": "SignUpSheetController",
+          "method_name": "set_priority",
+          "line": 311,
+          "chain_depth": 3,
+          "description": "Method `set_priority` in `SignUpSheetController` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/controllers/sign_up_sheet_controller.rb",
+          "class_name": "SignUpSheetController",
+          "method_name": "save_topic_deadlines",
+          "line": 347,
+          "chain_depth": 3,
+          "description": "Method `save_topic_deadlines` in `SignUpSheetController` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/controllers/sign_up_sheet_controller.rb",
+          "class_name": "SignUpSheetController",
+          "method_name": "save_topic_deadlines",
+          "line": 347,
+          "chain_depth": 3,
+          "description": "Method `save_topic_deadlines` in `SignUpSheetController` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/controllers/sign_up_sheet_controller.rb",
+          "class_name": "SignUpSheetController",
+          "method_name": "show_team",
+          "line": 404,
+          "chain_depth": 3,
+          "description": "Method `show_team` in `SignUpSheetController` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/controllers/sign_up_sheet_controller.rb",
+          "class_name": "SignUpSheetController",
+          "method_name": "switch_original_topic_to_approved_suggested_topic",
+          "line": 424,
+          "chain_depth": 3,
+          "description": "Method `switch_original_topic_to_approved_suggested_topic` in `SignUpSheetController` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/controllers/sign_up_sheet_controller.rb",
+          "class_name": "SignUpSheetController",
+          "method_name": "switch_original_topic_to_approved_suggested_topic",
+          "line": 424,
+          "chain_depth": 3,
+          "description": "Method `switch_original_topic_to_approved_suggested_topic` in `SignUpSheetController` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/controllers/sign_up_sheet_controller.rb",
+          "class_name": "SignUpSheetController",
+          "method_name": "update_max_choosers",
+          "line": 479,
+          "chain_depth": 3,
+          "description": "Method `update_max_choosers` in `SignUpSheetController` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/controllers/student_teams_controller.rb",
+          "class_name": "StudentTeamsController",
+          "method_name": "view",
+          "line": 45,
+          "chain_depth": 3,
+          "description": "Method `view` in `StudentTeamsController` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/controllers/student_teams_controller.rb",
+          "class_name": "StudentTeamsController",
+          "method_name": "view",
+          "line": 45,
+          "chain_depth": 3,
+          "description": "Method `view` in `StudentTeamsController` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/controllers/student_teams_controller.rb",
+          "class_name": "StudentTeamsController",
+          "method_name": "view",
+          "line": 45,
+          "chain_depth": 3,
+          "description": "Method `view` in `StudentTeamsController` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/controllers/student_teams_controller.rb",
+          "class_name": "StudentTeamsController",
+          "method_name": "view",
+          "line": 45,
+          "chain_depth": 3,
+          "description": "Method `view` in `StudentTeamsController` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/controllers/student_teams_controller.rb",
+          "class_name": "StudentTeamsController",
+          "method_name": "view",
+          "line": 45,
+          "chain_depth": 3,
+          "description": "Method `view` in `StudentTeamsController` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/controllers/student_teams_controller.rb",
+          "class_name": "StudentTeamsController",
+          "method_name": "view",
+          "line": 45,
+          "chain_depth": 3,
+          "description": "Method `view` in `StudentTeamsController` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/controllers/student_teams_controller.rb",
+          "class_name": "StudentTeamsController",
+          "method_name": "create",
+          "line": 69,
+          "chain_depth": 3,
+          "description": "Method `create` in `StudentTeamsController` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/controllers/student_teams_controller.rb",
+          "class_name": "StudentTeamsController",
+          "method_name": "update",
+          "line": 103,
+          "chain_depth": 3,
+          "description": "Method `update` in `StudentTeamsController` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/controllers/student_teams_controller.rb",
+          "class_name": "StudentTeamsController",
+          "method_name": "review",
+          "line": 161,
+          "chain_depth": 3,
+          "description": "Method `review` in `StudentTeamsController` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/controllers/student_teams_controller.rb",
+          "class_name": "StudentTeamsController",
+          "method_name": "student_team_requirements_met?",
+          "line": 167,
+          "chain_depth": 3,
+          "description": "Method `student_team_requirements_met?` in `StudentTeamsController` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/controllers/student_teams_controller.rb",
+          "class_name": "StudentTeamsController",
+          "method_name": "student_team_requirements_met?",
+          "line": 167,
+          "chain_depth": 4,
+          "description": "Method `student_team_requirements_met?` in `StudentTeamsController` has a call chain of depth 4 (max 2)."
+        },
+        {
+          "file": "app/controllers/student_teams_controller.rb",
+          "class_name": "StudentTeamsController",
+          "method_name": "student_team_requirements_met?",
+          "line": 167,
+          "chain_depth": 3,
+          "description": "Method `student_team_requirements_met?` in `StudentTeamsController` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/controllers/suggestion_controller.rb",
+          "class_name": "SuggestionController",
+          "method_name": "create",
+          "line": 64,
+          "chain_depth": 3,
+          "description": "Method `create` in `SuggestionController` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/controllers/suggestion_controller.rb",
+          "class_name": "SuggestionController",
+          "method_name": "create",
+          "line": 64,
+          "chain_depth": 3,
+          "description": "Method `create` in `SuggestionController` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/controllers/teams_controller.rb",
+          "class_name": "TeamsController",
+          "method_name": "init_team_type",
+          "line": 12,
+          "chain_depth": 3,
+          "description": "Method `init_team_type` in `TeamsController` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/controllers/teams_controller.rb",
+          "class_name": "TeamsController",
+          "method_name": "create_teams",
+          "line": 39,
+          "chain_depth": 4,
+          "description": "Method `create_teams` in `TeamsController` has a call chain of depth 4 (max 2)."
+        },
+        {
+          "file": "app/controllers/teams_controller.rb",
+          "class_name": "TeamsController",
+          "method_name": "create",
+          "line": 76,
+          "chain_depth": 4,
+          "description": "Method `create` in `TeamsController` has a call chain of depth 4 (max 2)."
+        },
+        {
+          "file": "app/controllers/teams_controller.rb",
+          "class_name": "TeamsController",
+          "method_name": "delete_all",
+          "line": 115,
+          "chain_depth": 3,
+          "description": "Method `delete_all` in `TeamsController` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/controllers/teams_controller.rb",
+          "class_name": "TeamsController",
+          "method_name": "delete",
+          "line": 123,
+          "chain_depth": 3,
+          "description": "Method `delete` in `TeamsController` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/controllers/teams_controller.rb",
+          "class_name": "TeamsController",
+          "method_name": "delete",
+          "line": 123,
+          "chain_depth": 3,
+          "description": "Method `delete` in `TeamsController` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/controllers/teams_controller.rb",
+          "class_name": "TeamsController",
+          "method_name": "delete",
+          "line": 123,
+          "chain_depth": 3,
+          "description": "Method `delete` in `TeamsController` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/controllers/teams_controller.rb",
+          "class_name": "TeamsController",
+          "method_name": "bequeath_copy",
+          "line": 193,
+          "chain_depth": 3,
+          "description": "Method `bequeath_copy` in `TeamsController` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/controllers/teams_controller.rb",
+          "class_name": "TeamsController",
+          "method_name": "bequeath_copy",
+          "line": 193,
+          "chain_depth": 3,
+          "description": "Method `bequeath_copy` in `TeamsController` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/controllers/teams_controller.rb",
+          "class_name": "TeamsController",
+          "method_name": "inherit_copy",
+          "line": 204,
+          "chain_depth": 3,
+          "description": "Method `inherit_copy` in `TeamsController` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/controllers/teams_participants_controller.rb",
+          "class_name": "TeamsParticipantsController",
+          "method_name": "index",
+          "line": 6,
+          "chain_depth": 3,
+          "description": "Method `index` in `TeamsParticipantsController` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/controllers/teams_participants_controller.rb",
+          "class_name": "TeamsParticipantsController",
+          "method_name": "create",
+          "line": 17,
+          "chain_depth": 4,
+          "description": "Method `create` in `TeamsParticipantsController` has a call chain of depth 4 (max 2)."
+        },
+        {
+          "file": "app/controllers/users_controller.rb",
+          "class_name": "UsersController",
+          "method_name": "show_if_authorized",
+          "line": 84,
+          "chain_depth": 3,
+          "description": "Method `show_if_authorized` in `UsersController` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/controllers/users_controller.rb",
+          "class_name": "UsersController",
+          "method_name": "create",
+          "line": 122,
+          "chain_depth": 3,
+          "description": "Method `create` in `UsersController` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/controllers/users_controller.rb",
+          "class_name": "UsersController",
+          "method_name": "create",
+          "line": 122,
+          "chain_depth": 3,
+          "description": "Method `create` in `UsersController` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/controllers/users_controller.rb",
+          "class_name": "UsersController",
+          "method_name": "create",
+          "line": 122,
+          "chain_depth": 3,
+          "description": "Method `create` in `UsersController` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/helpers/assignment_helper.rb",
+          "class_name": "AssignmentHelper",
+          "method_name": "course_options",
+          "line": 2,
+          "chain_depth": 3,
+          "description": "Method `course_options` in `AssignmentHelper` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/helpers/assignment_helper.rb",
+          "class_name": "AssignmentHelper",
+          "method_name": "course_options",
+          "line": 2,
+          "chain_depth": 3,
+          "description": "Method `course_options` in `AssignmentHelper` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/helpers/assignment_helper.rb",
+          "class_name": "AssignmentHelper",
+          "method_name": "course_options",
+          "line": 2,
+          "chain_depth": 3,
+          "description": "Method `course_options` in `AssignmentHelper` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/helpers/assignment_helper.rb",
+          "class_name": "AssignmentHelper",
+          "method_name": "due_date",
+          "line": 59,
+          "chain_depth": 3,
+          "description": "Method `due_date` in `AssignmentHelper` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/helpers/review_mapping_helper.rb",
+          "class_name": "ReviewMappingHelper",
+          "method_name": "get_team_reviewed_link_name",
+          "line": 116,
+          "chain_depth": 3,
+          "description": "Method `get_team_reviewed_link_name` in `ReviewMappingHelper` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/helpers/review_mapping_helper.rb",
+          "class_name": "ReviewMappingHelper",
+          "method_name": "get_team_reviewed_link_name",
+          "line": 116,
+          "chain_depth": 3,
+          "description": "Method `get_team_reviewed_link_name` in `ReviewMappingHelper` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/helpers/review_mapping_helper.rb",
+          "class_name": "ReviewMappingHelper",
+          "method_name": "sort_reviewer_by_review_volume_desc",
+          "line": 165,
+          "chain_depth": 3,
+          "description": "Method `sort_reviewer_by_review_volume_desc` in `ReviewMappingHelper` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/helpers/review_mapping_helper.rb",
+          "class_name": "ReviewMappingHelper",
+          "method_name": "sort_reviewer_by_review_volume_desc",
+          "line": 165,
+          "chain_depth": 4,
+          "description": "Method `sort_reviewer_by_review_volume_desc` in `ReviewMappingHelper` has a call chain of depth 4 (max 2)."
+        },
+        {
+          "file": "app/helpers/review_mapping_helper.rb",
+          "class_name": "ReviewMappingHelper",
+          "method_name": "display_tagging_interval_chart",
+          "line": 273,
+          "chain_depth": 3,
+          "description": "Method `display_tagging_interval_chart` in `ReviewMappingHelper` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/helpers/review_mapping_helper.rb",
+          "class_name": "ReviewMappingHelper",
+          "method_name": "calculate_key_chart_information",
+          "line": 316,
+          "chain_depth": 3,
+          "description": "Method `calculate_key_chart_information` in `ReviewMappingHelper` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/helpers/review_mapping_helper.rb",
+          "class_name": "ReviewMappingHelper",
+          "method_name": "calculate_key_chart_information",
+          "line": 316,
+          "chain_depth": 3,
+          "description": "Method `calculate_key_chart_information` in `ReviewMappingHelper` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/helpers/sign_up_sheet_helper.rb",
+          "class_name": "SignUpSheetHelper",
+          "method_name": "get_intelligent_topic_row",
+          "line": 33,
+          "chain_depth": 3,
+          "description": "Method `get_intelligent_topic_row` in `SignUpSheetHelper` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/helpers/sign_up_sheet_helper.rb",
+          "class_name": "SignUpSheetHelper",
+          "method_name": "get_intelligent_topic_row",
+          "line": 33,
+          "chain_depth": 3,
+          "description": "Method `get_intelligent_topic_row` in `SignUpSheetHelper` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/helpers/sign_up_sheet_helper.rb",
+          "class_name": "SignUpSheetHelper",
+          "method_name": "render_participant_info",
+          "line": 59,
+          "chain_depth": 4,
+          "description": "Method `render_participant_info` in `SignUpSheetHelper` has a call chain of depth 4 (max 2)."
+        },
+        {
+          "file": "app/helpers/sign_up_sheet_helper.rb",
+          "class_name": "SignUpSheetHelper",
+          "method_name": "render_participant_info",
+          "line": 59,
+          "chain_depth": 3,
+          "description": "Method `render_participant_info` in `SignUpSheetHelper` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/helpers/sign_up_sheet_helper.rb",
+          "class_name": "SignUpSheetHelper",
+          "method_name": "render_participant_info",
+          "line": 59,
+          "chain_depth": 3,
+          "description": "Method `render_participant_info` in `SignUpSheetHelper` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/helpers/sign_up_sheet_helper.rb",
+          "class_name": "SignUpSheetHelper",
+          "method_name": "render_participant_info",
+          "line": 59,
+          "chain_depth": 3,
+          "description": "Method `render_participant_info` in `SignUpSheetHelper` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/helpers/sign_up_sheet_helper.rb",
+          "class_name": "SignUpSheetHelper",
+          "method_name": "team_bids",
+          "line": 85,
+          "chain_depth": 3,
+          "description": "Method `team_bids` in `SignUpSheetHelper` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/mailers/mail_worker.rb",
+          "class_name": "MailWorker",
+          "method_name": "email_reminder",
+          "line": 36,
+          "chain_depth": 3,
+          "description": "Method `email_reminder` in `MailWorker` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/mailers/mail_worker.rb",
+          "class_name": "MailWorker",
+          "method_name": "email_reminder",
+          "line": 36,
+          "chain_depth": 3,
+          "description": "Method `email_reminder` in `MailWorker` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/mailers/mail_worker.rb",
+          "class_name": "MailWorker",
+          "method_name": "email_reminder",
+          "line": 36,
+          "chain_depth": 3,
+          "description": "Method `email_reminder` in `MailWorker` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/mailers/mail_worker.rb",
+          "class_name": "MailWorker",
+          "method_name": "email_reminder",
+          "line": 36,
+          "chain_depth": 3,
+          "description": "Method `email_reminder` in `MailWorker` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/mailers/mail_worker.rb",
+          "class_name": "MailWorker",
+          "method_name": "find_participant_emails",
+          "line": 61,
+          "chain_depth": 3,
+          "description": "Method `find_participant_emails` in `MailWorker` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/mailers/mail_worker.rb",
+          "class_name": "MailWorker",
+          "method_name": "find_participant_emails",
+          "line": 61,
+          "chain_depth": 3,
+          "description": "Method `find_participant_emails` in `MailWorker` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/mailers/mail_worker.rb",
+          "class_name": "MailWorker",
+          "method_name": "drop_one_member_topics",
+          "line": 70,
+          "chain_depth": 3,
+          "description": "Method `drop_one_member_topics` in `MailWorker` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/mailers/mail_worker.rb",
+          "class_name": "MailWorker",
+          "method_name": "drop_one_member_topics",
+          "line": 70,
+          "chain_depth": 3,
+          "description": "Method `drop_one_member_topics` in `MailWorker` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/mailers/mail_worker.rb",
+          "class_name": "MailWorker",
+          "method_name": "drop_outstanding_reviews",
+          "line": 80,
+          "chain_depth": 3,
+          "description": "Method `drop_outstanding_reviews` in `MailWorker` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/mailers/mail_worker.rb",
+          "class_name": "MailWorker",
+          "method_name": "drop_outstanding_reviews",
+          "line": 80,
+          "chain_depth": 3,
+          "description": "Method `drop_outstanding_reviews` in `MailWorker` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/models/assignment.rb",
+          "class_name": "Assignment",
+          "method_name": "user_on_team?",
+          "line": 50,
+          "chain_depth": 3,
+          "description": "Method `user_on_team?` in `Assignment` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/models/assignment.rb",
+          "class_name": "Assignment",
+          "method_name": "remove_empty_teams",
+          "line": 102,
+          "chain_depth": 3,
+          "description": "Method `remove_empty_teams` in `Assignment` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/models/assignment.rb",
+          "class_name": "Assignment",
+          "method_name": "remove_empty_teams",
+          "line": 102,
+          "chain_depth": 3,
+          "description": "Method `remove_empty_teams` in `Assignment` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/models/assignment.rb",
+          "class_name": "Assignment",
+          "method_name": "response_map_to_metareview",
+          "line": 126,
+          "chain_depth": 3,
+          "description": "Method `response_map_to_metareview` in `Assignment` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/models/assignment.rb",
+          "class_name": "Assignment",
+          "method_name": "response_map_to_metareview",
+          "line": 126,
+          "chain_depth": 3,
+          "description": "Method `response_map_to_metareview` in `Assignment` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/models/assignment.rb",
+          "class_name": "Assignment",
+          "method_name": "response_map_to_metareview",
+          "line": 126,
+          "chain_depth": 4,
+          "description": "Method `response_map_to_metareview` in `Assignment` has a call chain of depth 4 (max 2)."
+        },
+        {
+          "file": "app/models/assignment.rb",
+          "class_name": "Assignment",
+          "method_name": "response_map_to_metareview",
+          "line": 126,
+          "chain_depth": 4,
+          "description": "Method `response_map_to_metareview` in `Assignment` has a call chain of depth 4 (max 2)."
+        },
+        {
+          "file": "app/models/assignment.rb",
+          "class_name": "Assignment",
+          "method_name": "path",
+          "line": 174,
+          "chain_depth": 3,
+          "description": "Method `path` in `Assignment` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/models/assignment.rb",
+          "class_name": "Assignment",
+          "method_name": "path",
+          "line": 174,
+          "chain_depth": 3,
+          "description": "Method `path` in `Assignment` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/models/assignment.rb",
+          "class_name": "Assignment",
+          "method_name": "current_stage_name",
+          "line": 308,
+          "chain_depth": 3,
+          "description": "Method `current_stage_name` in `Assignment` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/models/assignment.rb",
+          "class_name": "Assignment",
+          "method_name": "stage_deadline",
+          "line": 339,
+          "chain_depth": 3,
+          "description": "Method `stage_deadline` in `Assignment` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/models/assignment.rb",
+          "class_name": "Assignment",
+          "method_name": "review_questionnaire_id",
+          "line": 371,
+          "chain_depth": 3,
+          "description": "Method `review_questionnaire_id` in `Assignment` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/models/assignment.rb",
+          "class_name": "Assignment",
+          "method_name": "review_questionnaire_id",
+          "line": 371,
+          "chain_depth": 3,
+          "description": "Method `review_questionnaire_id` in `Assignment` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/models/assignment.rb",
+          "class_name": "Assignment",
+          "method_name": "export_details",
+          "line": 391,
+          "chain_depth": 3,
+          "description": "Method `export_details` in `Assignment` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/models/assignment.rb",
+          "class_name": "Assignment",
+          "method_name": "csv_row",
+          "line": 438,
+          "chain_depth": 3,
+          "description": "Method `csv_row` in `Assignment` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/models/assignment.rb",
+          "class_name": "Assignment",
+          "method_name": "csv_row",
+          "line": 438,
+          "chain_depth": 3,
+          "description": "Method `csv_row` in `Assignment` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/models/assignment.rb",
+          "class_name": "Assignment",
+          "method_name": "export_headers",
+          "line": 482,
+          "chain_depth": 3,
+          "description": "Method `export_headers` in `Assignment` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/models/assignment.rb",
+          "class_name": "Assignment",
+          "method_name": "export",
+          "line": 491,
+          "chain_depth": 3,
+          "description": "Method `export` in `Assignment` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/models/assignment.rb",
+          "class_name": "Assignment",
+          "method_name": "export_data",
+          "line": 510,
+          "chain_depth": 3,
+          "description": "Method `export_data` in `Assignment` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/models/assignment.rb",
+          "class_name": "Assignment",
+          "method_name": "export_data",
+          "line": 510,
+          "chain_depth": 4,
+          "description": "Method `export_data` in `Assignment` has a call chain of depth 4 (max 2)."
+        },
+        {
+          "file": "app/models/assignment.rb",
+          "class_name": "Assignment",
+          "method_name": "find_review_period",
+          "line": 579,
+          "chain_depth": 3,
+          "description": "Method `find_review_period` in `Assignment` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/models/assignment.rb",
+          "class_name": "Assignment",
+          "method_name": "questionnaire_ids",
+          "line": 612,
+          "chain_depth": 3,
+          "description": "Method `questionnaire_ids` in `Assignment` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/models/assignment.rb",
+          "class_name": "Assignment",
+          "method_name": "min_metareview",
+          "line": 642,
+          "chain_depth": 3,
+          "description": "Method `min_metareview` in `Assignment` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/models/assignment.rb",
+          "class_name": "Assignment",
+          "method_name": "min_metareview",
+          "line": 642,
+          "chain_depth": 3,
+          "description": "Method `min_metareview` in `Assignment` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/models/assignment.rb",
+          "class_name": "Assignment",
+          "method_name": "min_metareview",
+          "line": 642,
+          "chain_depth": 4,
+          "description": "Method `min_metareview` in `Assignment` has a call chain of depth 4 (max 2)."
+        },
+        {
+          "file": "app/models/assignment_participant.rb",
+          "class_name": "AssignmentParticipant",
+          "method_name": "set_handle",
+          "line": 155,
+          "chain_depth": 3,
+          "description": "Method `set_handle` in `AssignmentParticipant` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/models/assignment_participant.rb",
+          "class_name": "AssignmentParticipant",
+          "method_name": "path",
+          "line": 166,
+          "chain_depth": 3,
+          "description": "Method `path` in `AssignmentParticipant` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/models/assignment_participant.rb",
+          "class_name": "AssignmentParticipant",
+          "method_name": "review_file_path",
+          "line": 171,
+          "chain_depth": 3,
+          "description": "Method `review_file_path` in `AssignmentParticipant` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/models/assignment_participant.rb",
+          "class_name": "AssignmentParticipant",
+          "method_name": "review_file_path",
+          "line": 171,
+          "chain_depth": 3,
+          "description": "Method `review_file_path` in `AssignmentParticipant` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/models/assignment_participant.rb",
+          "class_name": "AssignmentParticipant",
+          "method_name": "review_file_path",
+          "line": 171,
+          "chain_depth": 4,
+          "description": "Method `review_file_path` in `AssignmentParticipant` has a call chain of depth 4 (max 2)."
+        },
+        {
+          "file": "app/models/assignment_participant.rb",
+          "class_name": "AssignmentParticipant",
+          "method_name": "stage_deadline",
+          "line": 192,
+          "chain_depth": 4,
+          "description": "Method `stage_deadline` in `AssignmentParticipant` has a call chain of depth 4 (max 2)."
+        },
+        {
+          "file": "app/models/assignment_team.rb",
+          "class_name": "AssignmentTeam",
+          "method_name": "user_id",
+          "line": 20,
+          "chain_depth": 3,
+          "description": "Method `user_id` in `AssignmentTeam` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/models/assignment_team.rb",
+          "class_name": "AssignmentTeam",
+          "method_name": "assign_reviewer",
+          "line": 61,
+          "chain_depth": 3,
+          "description": "Method `assign_reviewer` in `AssignmentTeam` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/models/assignment_team.rb",
+          "class_name": "AssignmentTeam",
+          "method_name": "reviewed_by?",
+          "line": 75,
+          "chain_depth": 3,
+          "description": "Method `reviewed_by?` in `AssignmentTeam` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/models/assignment_team.rb",
+          "class_name": "AssignmentTeam",
+          "method_name": "get_logged_in_reviewer_id",
+          "line": 270,
+          "chain_depth": 3,
+          "description": "Method `get_logged_in_reviewer_id` in `AssignmentTeam` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/models/cake.rb",
+          "class_name": "Cake",
+          "method_name": "view_question_text",
+          "line": 21,
+          "chain_depth": 3,
+          "description": "Method `view_question_text` in `Cake` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/models/cake.rb",
+          "class_name": "Cake",
+          "method_name": "view_question_text",
+          "line": 21,
+          "chain_depth": 3,
+          "description": "Method `view_question_text` in `Cake` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/models/cake.rb",
+          "class_name": "Cake",
+          "method_name": "complete",
+          "line": 31,
+          "chain_depth": 3,
+          "description": "Method `complete` in `Cake` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/models/cake.rb",
+          "class_name": "Cake",
+          "method_name": "view_completed_question",
+          "line": 64,
+          "chain_depth": 3,
+          "description": "Method `view_completed_question` in `Cake` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/models/cake.rb",
+          "class_name": "Cake",
+          "method_name": "view_completed_question",
+          "line": 64,
+          "chain_depth": 3,
+          "description": "Method `view_completed_question` in `Cake` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/models/cake.rb",
+          "class_name": "Cake",
+          "method_name": "view_completed_question",
+          "line": 64,
+          "chain_depth": 3,
+          "description": "Method `view_completed_question` in `Cake` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/models/cake.rb",
+          "class_name": "Cake",
+          "method_name": "calculate_total_score",
+          "line": 116,
+          "chain_depth": 3,
+          "description": "Method `calculate_total_score` in `Cake` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/models/mentor_management.rb",
+          "class_name": "MentorManagement",
+          "method_name": "assign_mentor",
+          "line": 43,
+          "chain_depth": 3,
+          "description": "Method `assign_mentor` in `MentorManagement` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/models/mentor_management.rb",
+          "class_name": "MentorManagement",
+          "method_name": "assign_mentor",
+          "line": 43,
+          "chain_depth": 3,
+          "description": "Method `assign_mentor` in `MentorManagement` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/models/mentor_management.rb",
+          "class_name": "MentorManagement",
+          "method_name": "notify_mentor_of_assignment",
+          "line": 89,
+          "chain_depth": 3,
+          "description": "Method `notify_mentor_of_assignment` in `MentorManagement` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/models/mentored_team.rb",
+          "class_name": "MentoredTeam",
+          "method_name": "import_team_members",
+          "line": 22,
+          "chain_depth": 4,
+          "description": "Method `import_team_members` in `MentoredTeam` has a call chain of depth 4 (max 2)."
+        },
+        {
+          "file": "app/models/participant.rb",
+          "class_name": "Participant",
+          "method_name": "force_delete",
+          "line": 58,
+          "chain_depth": 3,
+          "description": "Method `force_delete` in `Participant` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/models/participant.rb",
+          "class_name": "Participant",
+          "method_name": "force_delete",
+          "line": 58,
+          "chain_depth": 3,
+          "description": "Method `force_delete` in `Participant` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/models/participant.rb",
+          "class_name": "Participant",
+          "method_name": "topic_name",
+          "line": 68,
+          "chain_depth": 3,
+          "description": "Method `topic_name` in `Participant` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/models/participant.rb",
+          "class_name": "Participant",
+          "method_name": "mail_assigned_reviewers",
+          "line": 77,
+          "chain_depth": 3,
+          "description": "Method `mail_assigned_reviewers` in `Participant` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/models/participant.rb",
+          "class_name": "Participant",
+          "method_name": "mail_assigned_reviewers",
+          "line": 77,
+          "chain_depth": 3,
+          "description": "Method `mail_assigned_reviewers` in `Participant` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/models/participant.rb",
+          "class_name": "Participant",
+          "method_name": "mail_assigned_reviewers",
+          "line": 77,
+          "chain_depth": 3,
+          "description": "Method `mail_assigned_reviewers` in `Participant` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/models/participant.rb",
+          "class_name": "Participant",
+          "method_name": "email",
+          "line": 95,
+          "chain_depth": 3,
+          "description": "Method `email` in `Participant` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/models/participant.rb",
+          "class_name": "Participant",
+          "method_name": "sort_by_name",
+          "line": 127,
+          "chain_depth": 3,
+          "description": "Method `sort_by_name` in `Participant` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/models/participant.rb",
+          "class_name": "Participant",
+          "method_name": "sort_by_name",
+          "line": 127,
+          "chain_depth": 3,
+          "description": "Method `sort_by_name` in `Participant` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/models/participant.rb",
+          "class_name": "Participant",
+          "method_name": "export",
+          "line": 135,
+          "chain_depth": 3,
+          "description": "Method `export` in `Participant` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/models/participant.rb",
+          "class_name": "Participant",
+          "method_name": "export",
+          "line": 135,
+          "chain_depth": 3,
+          "description": "Method `export` in `Participant` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/models/review_response_map.rb",
+          "class_name": "ReviewResponseMap",
+          "method_name": "export",
+          "line": 35,
+          "chain_depth": 3,
+          "description": "Method `export` in `ReviewResponseMap` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/models/review_response_map.rb",
+          "class_name": "ReviewResponseMap",
+          "method_name": "export",
+          "line": 35,
+          "chain_depth": 3,
+          "description": "Method `export` in `ReviewResponseMap` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/models/review_response_map.rb",
+          "class_name": "ReviewResponseMap",
+          "method_name": "export",
+          "line": 35,
+          "chain_depth": 3,
+          "description": "Method `export` in `ReviewResponseMap` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/models/review_response_map.rb",
+          "class_name": "ReviewResponseMap",
+          "method_name": "export",
+          "line": 35,
+          "chain_depth": 3,
+          "description": "Method `export` in `ReviewResponseMap` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/models/review_response_map.rb",
+          "class_name": "ReviewResponseMap",
+          "method_name": "import",
+          "line": 46,
+          "chain_depth": 3,
+          "description": "Method `import` in `ReviewResponseMap` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/models/review_response_map.rb",
+          "class_name": "ReviewResponseMap",
+          "method_name": "show_feedback",
+          "line": 78,
+          "chain_depth": 3,
+          "description": "Method `show_feedback` in `ReviewResponseMap` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/models/review_response_map.rb",
+          "class_name": "ReviewResponseMap",
+          "method_name": "show_feedback",
+          "line": 78,
+          "chain_depth": 4,
+          "description": "Method `show_feedback` in `ReviewResponseMap` has a call chain of depth 4 (max 2)."
+        },
+        {
+          "file": "app/models/review_response_map.rb",
+          "class_name": "ReviewResponseMap",
+          "method_name": "show_feedback",
+          "line": 78,
+          "chain_depth": 3,
+          "description": "Method `show_feedback` in `ReviewResponseMap` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/models/review_response_map.rb",
+          "class_name": "ReviewResponseMap",
+          "method_name": "get_responses_for_team_round",
+          "line": 96,
+          "chain_depth": 3,
+          "description": "Method `get_responses_for_team_round` in `ReviewResponseMap` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/models/review_response_map.rb",
+          "class_name": "ReviewResponseMap",
+          "method_name": "get_responses_for_team_round",
+          "line": 96,
+          "chain_depth": 3,
+          "description": "Method `get_responses_for_team_round` in `ReviewResponseMap` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/models/review_response_map.rb",
+          "class_name": "ReviewResponseMap",
+          "method_name": "get_responses_for_team_round",
+          "line": 96,
+          "chain_depth": 3,
+          "description": "Method `get_responses_for_team_round` in `ReviewResponseMap` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/models/review_response_map.rb",
+          "class_name": "ReviewResponseMap",
+          "method_name": "get_responses_for_team_round",
+          "line": 96,
+          "chain_depth": 4,
+          "description": "Method `get_responses_for_team_round` in `ReviewResponseMap` has a call chain of depth 4 (max 2)."
+        },
+        {
+          "file": "app/models/review_response_map.rb",
+          "class_name": "ReviewResponseMap",
+          "method_name": "get_responses_for_team_round",
+          "line": 96,
+          "chain_depth": 4,
+          "description": "Method `get_responses_for_team_round` in `ReviewResponseMap` has a call chain of depth 4 (max 2)."
+        },
+        {
+          "file": "app/models/review_response_map.rb",
+          "class_name": "ReviewResponseMap",
+          "method_name": "prepare_review_response",
+          "line": 195,
+          "chain_depth": 3,
+          "description": "Method `prepare_review_response` in `ReviewResponseMap` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/models/review_response_map.rb",
+          "class_name": "ReviewResponseMap",
+          "method_name": "prepare_review_response_by_topic",
+          "line": 213,
+          "chain_depth": 3,
+          "description": "Method `prepare_review_response_by_topic` in `ReviewResponseMap` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/models/sign_up_topic.rb",
+          "class_name": "SignUpTopic",
+          "method_name": "update_waitlisted_users",
+          "line": 83,
+          "chain_depth": 3,
+          "description": "Method `update_waitlisted_users` in `SignUpTopic` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/models/signed_up_team.rb",
+          "class_name": "SignedUpTeam",
+          "method_name": "topic_id_by_team_id",
+          "line": 76,
+          "chain_depth": 3,
+          "description": "Method `topic_id_by_team_id` in `SignedUpTeam` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/models/tag_prompt_deployment.rb",
+          "class_name": "TagPromptDeployment",
+          "method_name": "assignment_tagging_progress",
+          "line": 30,
+          "chain_depth": 3,
+          "description": "Method `assignment_tagging_progress` in `TagPromptDeployment` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/models/tag_prompt_deployment.rb",
+          "class_name": "TagPromptDeployment",
+          "method_name": "assignment_tagging_progress",
+          "line": 30,
+          "chain_depth": 3,
+          "description": "Method `assignment_tagging_progress` in `TagPromptDeployment` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/models/tag_prompt_deployment.rb",
+          "class_name": "TagPromptDeployment",
+          "method_name": "assignment_tagging_progress",
+          "line": 30,
+          "chain_depth": 3,
+          "description": "Method `assignment_tagging_progress` in `TagPromptDeployment` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/models/tag_prompt_deployment.rb",
+          "class_name": "TagPromptDeployment",
+          "method_name": "assignment_tagging_progress",
+          "line": 30,
+          "chain_depth": 3,
+          "description": "Method `assignment_tagging_progress` in `TagPromptDeployment` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/models/team.rb",
+          "class_name": "Team",
+          "method_name": "randomize_all_by_parent",
+          "line": 128,
+          "chain_depth": 3,
+          "description": "Method `randomize_all_by_parent` in `Team` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/models/team.rb",
+          "class_name": "Team",
+          "method_name": "randomize_all_by_parent",
+          "line": 128,
+          "chain_depth": 3,
+          "description": "Method `randomize_all_by_parent` in `Team` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/models/team.rb",
+          "class_name": "Team",
+          "method_name": "create_team_from_single_users",
+          "line": 150,
+          "chain_depth": 3,
+          "description": "Method `create_team_from_single_users` in `Team` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/models/team.rb",
+          "class_name": "Team",
+          "method_name": "generate_team_name",
+          "line": 182,
+          "chain_depth": 3,
+          "description": "Method `generate_team_name` in `Team` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/models/team.rb",
+          "class_name": "Team",
+          "method_name": "remove_user_from_previous_team",
+          "line": 307,
+          "chain_depth": 3,
+          "description": "Method `remove_user_from_previous_team` in `Team` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/models/teams_participant.rb",
+          "class_name": "TeamsParticipant",
+          "method_name": "delete",
+          "line": 25,
+          "chain_depth": 3,
+          "description": "Method `delete` in `TeamsParticipant` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/models/teams_participant.rb",
+          "class_name": "TeamsParticipant",
+          "method_name": "team_id",
+          "line": 69,
+          "chain_depth": 3,
+          "description": "Method `team_id` in `TeamsParticipant` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/models/user.rb",
+          "class_name": "User",
+          "method_name": "recursively_parent_of",
+          "line": 66,
+          "chain_depth": 3,
+          "description": "Method `recursively_parent_of` in `User` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/models/user.rb",
+          "class_name": "User",
+          "method_name": "generate_keys",
+          "line": 224,
+          "chain_depth": 3,
+          "description": "Method `generate_keys` in `User` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/models/user.rb",
+          "class_name": "User",
+          "method_name": "export",
+          "line": 256,
+          "chain_depth": 3,
+          "description": "Method `export` in `User` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/models/user.rb",
+          "class_name": "User",
+          "method_name": "export",
+          "line": 256,
+          "chain_depth": 3,
+          "description": "Method `export` in `User` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/models/user.rb",
+          "class_name": "User",
+          "method_name": "teaching_assistant_for?",
+          "line": 298,
+          "chain_depth": 3,
+          "description": "Method `teaching_assistant_for?` in `User` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/models/user.rb",
+          "class_name": "User",
+          "method_name": "teaching_assistant_for?",
+          "line": 298,
+          "chain_depth": 3,
+          "description": "Method `teaching_assistant_for?` in `User` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "app/models/user.rb",
+          "class_name": "User",
+          "method_name": "teaching_assistant_for?",
+          "line": 298,
+          "chain_depth": 3,
+          "description": "Method `teaching_assistant_for?` in `User` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "db/migrate/002_initialize_custom.rb",
+          "class_name": "InitializeCustom",
+          "method_name": "up",
+          "line": 2,
+          "chain_depth": 3,
+          "description": "Method `up` in `InitializeCustom` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "db/migrate/002_initialize_custom.rb",
+          "class_name": "InitializeCustom",
+          "method_name": "up",
+          "line": 2,
+          "chain_depth": 3,
+          "description": "Method `up` in `InitializeCustom` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "db/migrate/002_initialize_custom.rb",
+          "class_name": "InitializeCustom",
+          "method_name": "up",
+          "line": 2,
+          "chain_depth": 3,
+          "description": "Method `up` in `InitializeCustom` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "db/migrate/002_initialize_custom.rb",
+          "class_name": "InitializeCustom",
+          "method_name": "up",
+          "line": 2,
+          "chain_depth": 3,
+          "description": "Method `up` in `InitializeCustom` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "db/migrate/002_initialize_custom.rb",
+          "class_name": "InitializeCustom",
+          "method_name": "up",
+          "line": 2,
+          "chain_depth": 3,
+          "description": "Method `up` in `InitializeCustom` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "db/migrate/002_initialize_custom.rb",
+          "class_name": "InitializeCustom",
+          "method_name": "up",
+          "line": 2,
+          "chain_depth": 3,
+          "description": "Method `up` in `InitializeCustom` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "db/migrate/002_initialize_custom.rb",
+          "class_name": "InitializeCustom",
+          "method_name": "up",
+          "line": 2,
+          "chain_depth": 4,
+          "description": "Method `up` in `InitializeCustom` has a call chain of depth 4 (max 2)."
+        },
+        {
+          "file": "db/migrate/002_initialize_custom.rb",
+          "class_name": "InitializeCustom",
+          "method_name": "up",
+          "line": 2,
+          "chain_depth": 4,
+          "description": "Method `up` in `InitializeCustom` has a call chain of depth 4 (max 2)."
+        },
+        {
+          "file": "db/migrate/002_initialize_custom.rb",
+          "class_name": "InitializeCustom",
+          "method_name": "up",
+          "line": 2,
+          "chain_depth": 3,
+          "description": "Method `up` in `InitializeCustom` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "db/migrate/002_initialize_custom.rb",
+          "class_name": "InitializeCustom",
+          "method_name": "up",
+          "line": 2,
+          "chain_depth": 3,
+          "description": "Method `up` in `InitializeCustom` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "db/migrate/002_initialize_custom.rb",
+          "class_name": "InitializeCustom",
+          "method_name": "up",
+          "line": 2,
+          "chain_depth": 3,
+          "description": "Method `up` in `InitializeCustom` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "db/migrate/002_initialize_custom.rb",
+          "class_name": "InitializeCustom",
+          "method_name": "up",
+          "line": 2,
+          "chain_depth": 3,
+          "description": "Method `up` in `InitializeCustom` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "db/migrate/002_initialize_custom.rb",
+          "class_name": "InitializeCustom",
+          "method_name": "up",
+          "line": 2,
+          "chain_depth": 3,
+          "description": "Method `up` in `InitializeCustom` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "db/migrate/002_initialize_custom.rb",
+          "class_name": "InitializeCustom",
+          "method_name": "up",
+          "line": 2,
+          "chain_depth": 3,
+          "description": "Method `up` in `InitializeCustom` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "db/migrate/002_initialize_custom.rb",
+          "class_name": "InitializeCustom",
+          "method_name": "up",
+          "line": 2,
+          "chain_depth": 3,
+          "description": "Method `up` in `InitializeCustom` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "db/migrate/002_initialize_custom.rb",
+          "class_name": "InitializeCustom",
+          "method_name": "up",
+          "line": 2,
+          "chain_depth": 3,
+          "description": "Method `up` in `InitializeCustom` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "db/migrate/002_initialize_custom.rb",
+          "class_name": "InitializeCustom",
+          "method_name": "up",
+          "line": 2,
+          "chain_depth": 3,
+          "description": "Method `up` in `InitializeCustom` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "db/migrate/002_initialize_custom.rb",
+          "class_name": "InitializeCustom",
+          "method_name": "up",
+          "line": 2,
+          "chain_depth": 4,
+          "description": "Method `up` in `InitializeCustom` has a call chain of depth 4 (max 2)."
+        },
+        {
+          "file": "db/migrate/002_initialize_custom.rb",
+          "class_name": "InitializeCustom",
+          "method_name": "up",
+          "line": 2,
+          "chain_depth": 4,
+          "description": "Method `up` in `InitializeCustom` has a call chain of depth 4 (max 2)."
+        },
+        {
+          "file": "db/migrate/002_initialize_custom.rb",
+          "class_name": "InitializeCustom",
+          "method_name": "up",
+          "line": 2,
+          "chain_depth": 3,
+          "description": "Method `up` in `InitializeCustom` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "db/migrate/002_initialize_custom.rb",
+          "class_name": "InitializeCustom",
+          "method_name": "up",
+          "line": 2,
+          "chain_depth": 3,
+          "description": "Method `up` in `InitializeCustom` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "db/migrate/002_initialize_custom.rb",
+          "class_name": "InitializeCustom",
+          "method_name": "up",
+          "line": 2,
+          "chain_depth": 3,
+          "description": "Method `up` in `InitializeCustom` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "db/migrate/002_initialize_custom.rb",
+          "class_name": "InitializeCustom",
+          "method_name": "up",
+          "line": 2,
+          "chain_depth": 3,
+          "description": "Method `up` in `InitializeCustom` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "db/migrate/002_initialize_custom.rb",
+          "class_name": "InitializeCustom",
+          "method_name": "up",
+          "line": 2,
+          "chain_depth": 3,
+          "description": "Method `up` in `InitializeCustom` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "db/migrate/002_initialize_custom.rb",
+          "class_name": "InitializeCustom",
+          "method_name": "up",
+          "line": 2,
+          "chain_depth": 3,
+          "description": "Method `up` in `InitializeCustom` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "db/migrate/002_initialize_custom.rb",
+          "class_name": "InitializeCustom",
+          "method_name": "up",
+          "line": 2,
+          "chain_depth": 3,
+          "description": "Method `up` in `InitializeCustom` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "db/migrate/002_initialize_custom.rb",
+          "class_name": "InitializeCustom",
+          "method_name": "up",
+          "line": 2,
+          "chain_depth": 4,
+          "description": "Method `up` in `InitializeCustom` has a call chain of depth 4 (max 2)."
+        },
+        {
+          "file": "db/migrate/20150527105416_convert_all_individual_assignments_to_one_member_team_assignments.rb",
+          "class_name": "ConvertAllIndividualAssignmentsToOneMemberTeamAssignments",
+          "method_name": "up",
+          "line": 2,
+          "chain_depth": 3,
+          "description": "Method `up` in `ConvertAllIndividualAssignmentsToOneMemberTeamAssignments` has a call chain of depth 3 (max 2)."
+        },
+        {
+          "file": "db/migrate/20230415194444_add_participant_id_and_populate.rb",
+          "class_name": "AddParticipantIdAndPopulate",
+          "method_name": "up",
+          "line": 3,
+          "chain_depth": 3,
+          "description": "Method `up` in `AddParticipantIdAndPopulate` has a call chain of depth 3 (max 2)."
+        }
+      ],
+      "count": 260
+    },
+    "cmo": {
+      "violations": [
+        {
+          "file": "app/models/course_team.rb",
+          "class_name": "CourseTeam",
+          "class_method_count": 5,
+          "instance_method_count": 5,
+          "ratio": 0.5,
+          "description": "Class `CourseTeam` has 5 class methods and 5 instance methods (ratio 0.5); consider converting to instance methods."
+        },
+        {
+          "file": "app/models/invitation.rb",
+          "class_name": "Invitation",
+          "class_method_count": 5,
+          "instance_method_count": 0,
+          "ratio": 1.0,
+          "description": "Class `Invitation` has 5 class methods and 0 instance methods (ratio 1.0); consider converting to instance methods."
+        },
+        {
+          "file": "app/models/mentor_management.rb",
+          "class_name": "MentorManagement",
+          "class_method_count": 7,
+          "instance_method_count": 0,
+          "ratio": 1.0,
+          "description": "Class `MentorManagement` has 7 class methods and 0 instance methods (ratio 1.0); consider converting to instance methods."
+        },
+        {
+          "file": "app/models/review_response_map.rb",
+          "class_name": "ReviewResponseMap",
+          "class_method_count": 10,
+          "instance_method_count": 8,
+          "ratio": 0.556,
+          "description": "Class `ReviewResponseMap` has 10 class methods and 8 instance methods (ratio 0.56); consider converting to instance methods."
+        },
+        {
+          "file": "app/models/sign_up_sheet.rb",
+          "class_name": "SignUpSheet",
+          "class_method_count": 4,
+          "instance_method_count": 2,
+          "ratio": 0.667,
+          "description": "Class `SignUpSheet` has 4 class methods and 2 instance methods (ratio 0.67); consider converting to instance methods."
+        },
+        {
+          "file": "app/models/sign_up_topic.rb",
+          "class_name": "SignUpTopic",
+          "class_method_count": 9,
+          "instance_method_count": 7,
+          "ratio": 0.563,
+          "description": "Class `SignUpTopic` has 9 class methods and 7 instance methods (ratio 0.56); consider converting to instance methods."
+        },
+        {
+          "file": "app/models/signed_up_team.rb",
+          "class_name": "SignedUpTeam",
+          "class_method_count": 8,
+          "instance_method_count": 0,
+          "ratio": 1.0,
+          "description": "Class `SignedUpTeam` has 8 class methods and 0 instance methods (ratio 1.0); consider converting to instance methods."
+        },
+        {
+          "file": "app/models/team.rb",
+          "class_name": "Team",
+          "class_method_count": 16,
+          "instance_method_count": 11,
+          "ratio": 0.593,
+          "description": "Class `Team` has 16 class methods and 11 instance methods (ratio 0.59); consider converting to instance methods."
+        },
+        {
+          "file": "app/models/teams_participant.rb",
+          "class_name": "TeamsParticipant",
+          "class_method_count": 6,
+          "instance_method_count": 2,
+          "ratio": 0.75,
+          "description": "Class `TeamsParticipant` has 6 class methods and 2 instance methods (ratio 0.75); consider converting to instance methods."
+        }
+      ],
+      "count": 9
+    },
+    "srp": {
+      "signals": [
+        {
+          "file": "app/controllers/assessment360_controller.rb",
+          "class_name": "Assessment360Controller",
+          "method_count": 11,
+          "external_count": 0,
+          "description": "Class `Assessment360Controller` has 11 methods (limit 7); may violate SRP."
+        },
+        {
+          "file": "app/controllers/grades_controller.rb",
+          "class_name": "GradesController",
+          "method_count": 16,
+          "external_count": 3,
+          "description": "Class `GradesController` has 16 methods (limit 7); may violate SRP."
+        },
+        {
+          "file": "app/controllers/invitations_controller.rb",
+          "class_name": "InvitationsController",
+          "method_count": 14,
+          "external_count": 2,
+          "description": "Class `InvitationsController` has 14 methods (limit 7); may violate SRP."
+        },
+        {
+          "file": "app/controllers/join_team_requests_controller.rb",
+          "class_name": "JoinTeamRequestsController",
+          "method_count": 13,
+          "external_count": 1,
+          "description": "Class `JoinTeamRequestsController` has 13 methods (limit 7); may violate SRP."
+        },
+        {
+          "file": "app/controllers/lottery_controller.rb",
+          "class_name": "LotteryController",
+          "method_count": 7,
+          "external_count": 1,
+          "description": "Class `LotteryController` has 7 methods (limit 7); may violate SRP."
+        },
+        {
+          "file": "app/controllers/participants_controller.rb",
+          "class_name": "ParticipantsController",
+          "method_count": 14,
+          "external_count": 1,
+          "description": "Class `ParticipantsController` has 14 methods (limit 7); may violate SRP."
+        },
+        {
+          "file": "app/controllers/review_mapping_controller.rb",
+          "class_name": "ReviewMappingController",
+          "method_count": 27,
+          "external_count": 4,
+          "description": "Class `ReviewMappingController` has 27 methods (limit 7); may violate SRP."
+        },
+        {
+          "file": "app/controllers/sign_up_sheet_controller.rb",
+          "class_name": "SignUpSheetController",
+          "method_count": 32,
+          "external_count": 3,
+          "description": "Class `SignUpSheetController` has 32 methods (limit 7); may violate SRP."
+        },
+        {
+          "file": "app/controllers/student_teams_controller.rb",
+          "class_name": "StudentTeamsController",
+          "method_count": 14,
+          "external_count": 3,
+          "description": "Class `StudentTeamsController` has 14 methods (limit 7); may violate SRP."
+        },
+        {
+          "file": "app/controllers/suggestion_controller.rb",
+          "class_name": "SuggestionController",
+          "method_count": 16,
+          "external_count": 2,
+          "description": "Class `SuggestionController` has 16 methods (limit 7); may violate SRP."
+        },
+        {
+          "file": "app/controllers/teams_controller.rb",
+          "class_name": "TeamsController",
+          "method_count": 18,
+          "external_count": 1,
+          "description": "Class `TeamsController` has 18 methods (limit 7); may violate SRP."
+        },
+        {
+          "file": "app/controllers/teams_participants_controller.rb",
+          "class_name": "TeamsParticipantsController",
+          "method_count": 8,
+          "external_count": 1,
+          "description": "Class `TeamsParticipantsController` has 8 methods (limit 7); may violate SRP."
+        },
+        {
+          "file": "app/controllers/users_controller.rb",
+          "class_name": "UsersController",
+          "method_count": 17,
+          "external_count": 2,
+          "description": "Class `UsersController` has 17 methods (limit 7); may violate SRP."
+        },
+        {
+          "file": "app/models/assignment.rb",
+          "class_name": "Assignment",
+          "method_count": 55,
+          "external_count": 1,
+          "description": "Class `Assignment` has 55 methods (limit 7); may violate SRP."
+        },
+        {
+          "file": "app/models/assignment_participant.rb",
+          "class_name": "AssignmentParticipant",
+          "method_count": 25,
+          "external_count": 1,
+          "description": "Class `AssignmentParticipant` has 25 methods (limit 7); may violate SRP."
+        },
+        {
+          "file": "app/models/assignment_team.rb",
+          "class_name": "AssignmentTeam",
+          "method_count": 36,
+          "external_count": 1,
+          "description": "Class `AssignmentTeam` has 36 methods (limit 7); may violate SRP."
+        },
+        {
+          "file": "app/models/cake.rb",
+          "class_name": "Cake",
+          "method_count": 8,
+          "external_count": 0,
+          "description": "Class `Cake` has 8 methods (limit 7); may violate SRP."
+        },
+        {
+          "file": "app/models/course_team.rb",
+          "class_name": "CourseTeam",
+          "method_count": 10,
+          "external_count": 1,
+          "description": "Class `CourseTeam` has 10 methods (limit 7); may violate SRP."
+        },
+        {
+          "file": "app/models/mentor_management.rb",
+          "class_name": "MentorManagement",
+          "method_count": 7,
+          "external_count": 0,
+          "description": "Class `MentorManagement` has 7 methods (limit 7); may violate SRP."
+        },
+        {
+          "file": "app/models/participant.rb",
+          "class_name": "Participant",
+          "method_count": 15,
+          "external_count": 0,
+          "description": "Class `Participant` has 15 methods (limit 7); may violate SRP."
+        },
+        {
+          "file": "app/models/review_response_map.rb",
+          "class_name": "ReviewResponseMap",
+          "method_count": 18,
+          "external_count": 1,
+          "description": "Class `ReviewResponseMap` has 18 methods (limit 7); may violate SRP."
+        },
+        {
+          "file": "app/models/sign_up_topic.rb",
+          "class_name": "SignUpTopic",
+          "method_count": 16,
+          "external_count": 3,
+          "description": "Class `SignUpTopic` has 16 methods (limit 7); may violate SRP."
+        },
+        {
+          "file": "app/models/signed_up_team.rb",
+          "class_name": "SignedUpTeam",
+          "method_count": 8,
+          "external_count": 0,
+          "description": "Class `SignedUpTeam` has 8 methods (limit 7); may violate SRP."
+        },
+        {
+          "file": "app/models/team.rb",
+          "class_name": "Team",
+          "method_count": 27,
+          "external_count": 1,
+          "description": "Class `Team` has 27 methods (limit 7); may violate SRP."
+        },
+        {
+          "file": "app/models/teams_participant.rb",
+          "class_name": "TeamsParticipant",
+          "method_count": 8,
+          "external_count": 0,
+          "description": "Class `TeamsParticipant` has 8 methods (limit 7); may violate SRP."
+        },
+        {
+          "file": "app/models/user.rb",
+          "class_name": "User",
+          "method_count": 32,
+          "external_count": 0,
+          "description": "Class `User` has 32 methods (limit 7); may violate SRP."
+        }
+      ],
+      "count": 26
+    },
+    "dry": {
+      "violations": [
+        {
+          "class_name": "Assessment360Controller",
+          "method_name": "action_allowed?",
+          "file": "app/controllers/assessment360_controller.rb",
+          "line": 7,
+          "duplicate_count": 3,
+          "description": "Method `action_allowed?` in `Assessment360Controller` appears to duplicate 3 other implementation(s)."
+        },
+        {
+          "class_name": "LotteryController",
+          "method_name": "action_allowed?",
+          "file": "app/controllers/lottery_controller.rb",
+          "line": 8,
+          "duplicate_count": 3,
+          "description": "Method `action_allowed?` in `LotteryController` appears to duplicate 3 other implementation(s)."
+        },
+        {
+          "class_name": "PopupController",
+          "method_name": "action_allowed?",
+          "file": "app/controllers/popup_controller.rb",
+          "line": 6,
+          "duplicate_count": 3,
+          "description": "Method `action_allowed?` in `PopupController` appears to duplicate 3 other implementation(s)."
+        },
+        {
+          "class_name": "TeamsController",
+          "method_name": "action_allowed?",
+          "file": "app/controllers/teams_controller.rb",
+          "line": 7,
+          "duplicate_count": 3,
+          "description": "Method `action_allowed?` in `TeamsController` appears to duplicate 3 other implementation(s)."
+        },
+        {
+          "class_name": "GradesController",
+          "method_name": "controller_locale",
+          "file": "app/controllers/grades_controller.rb",
+          "line": 30,
+          "duplicate_count": 3,
+          "description": "Method `controller_locale` in `GradesController` appears to duplicate 3 other implementation(s)."
+        },
+        {
+          "class_name": "ParticipantsController",
+          "method_name": "controller_locale",
+          "file": "app/controllers/participants_controller.rb",
+          "line": 14,
+          "duplicate_count": 3,
+          "description": "Method `controller_locale` in `ParticipantsController` appears to duplicate 3 other implementation(s)."
+        },
+        {
+          "class_name": "SignUpSheetController",
+          "method_name": "controller_locale",
+          "file": "app/controllers/sign_up_sheet_controller.rb",
+          "line": 39,
+          "duplicate_count": 3,
+          "description": "Method `controller_locale` in `SignUpSheetController` appears to duplicate 3 other implementation(s)."
+        },
+        {
+          "class_name": "StudentTeamsController",
+          "method_name": "controller_locale",
+          "file": "app/controllers/student_teams_controller.rb",
+          "line": 41,
+          "duplicate_count": 3,
+          "description": "Method `controller_locale` in `StudentTeamsController` appears to duplicate 3 other implementation(s)."
+        },
+        {
+          "class_name": "InvitationsController",
+          "method_name": "action_allowed?",
+          "file": "app/controllers/invitations_controller.rb",
+          "line": 8,
+          "duplicate_count": 2,
+          "description": "Method `action_allowed?` in `InvitationsController` appears to duplicate 2 other implementation(s)."
+        },
+        {
+          "class_name": "JoinTeamRequestsController",
+          "method_name": "action_allowed?",
+          "file": "app/controllers/join_team_requests_controller.rb",
+          "line": 9,
+          "duplicate_count": 2,
+          "description": "Method `action_allowed?` in `JoinTeamRequestsController` appears to duplicate 2 other implementation(s)."
+        },
+        {
+          "class_name": "PairProgrammingController",
+          "method_name": "action_allowed?",
+          "file": "app/controllers/pair_programming_controller.rb",
+          "line": 4,
+          "duplicate_count": 2,
+          "description": "Method `action_allowed?` in `PairProgrammingController` appears to duplicate 2 other implementation(s)."
+        },
+        {
+          "class_name": "AssignmentParticipant",
+          "method_name": "files",
+          "file": "app/models/assignment_participant.rb",
+          "line": 92,
+          "duplicate_count": 1,
+          "description": "Method `files` in `AssignmentParticipant` appears to duplicate 1 other implementation(s)."
+        },
+        {
+          "class_name": "AssignmentTeam",
+          "method_name": "files",
+          "file": "app/models/assignment_team.rb",
+          "line": 172,
+          "duplicate_count": 1,
+          "description": "Method `files` in `AssignmentTeam` appears to duplicate 1 other implementation(s)."
+        },
+        {
+          "class_name": "SignedUpTeam",
+          "method_name": "find_team_participants",
+          "file": "app/models/signed_up_team.rb",
+          "line": 41,
+          "duplicate_count": 1,
+          "description": "Method `find_team_participants` in `SignedUpTeam` appears to duplicate 1 other implementation(s)."
+        },
+        {
+          "class_name": "Team",
+          "method_name": "find_team_participants",
+          "file": "app/models/team.rb",
+          "line": 316,
+          "duplicate_count": 1,
+          "description": "Method `find_team_participants` in `Team` appears to duplicate 1 other implementation(s)."
+        }
+      ],
+      "count": 15
+    },
+    "lsp": {
+      "signals": [
+        {
+          "file": "app/models/assignment_team.rb",
+          "class_name": "AssignmentTeam",
+          "parent_class": "Team",
+          "method_name": "import",
+          "child_arity": 3,
+          "parent_arity": 4,
+          "description": "Method `import` in `AssignmentTeam` overrides parent `Team` with arity 3 (parent expects 4)."
+        },
+        {
+          "file": "app/models/assignment_team.rb",
+          "class_name": "AssignmentTeam",
+          "parent_class": "Team",
+          "method_name": "export",
+          "child_arity": 3,
+          "parent_arity": 4,
+          "description": "Method `export` in `AssignmentTeam` overrides parent `Team` with arity 3 (parent expects 4)."
+        },
+        {
+          "file": "app/models/course_team.rb",
+          "class_name": "CourseTeam",
+          "parent_class": "Team",
+          "method_name": "import",
+          "child_arity": 3,
+          "parent_arity": 4,
+          "description": "Method `import` in `CourseTeam` overrides parent `Team` with arity 3 (parent expects 4)."
+        },
+        {
+          "file": "app/models/course_team.rb",
+          "class_name": "CourseTeam",
+          "parent_class": "Team",
+          "method_name": "export",
+          "child_arity": 3,
+          "parent_arity": 4,
+          "description": "Method `export` in `CourseTeam` overrides parent `Team` with arity 3 (parent expects 4)."
+        }
+      ],
+      "count": 4
+    },
+    "files_analyzed": 57,
+    "summaries": {
+      "lod": "LoD: 260 method-chain violation(s) detected (deepest chain: 4 levels; threshold: 3).",
+      "cmo": "CMO: 9 class(es) with high class-method ratio (>50%): CourseTeam, Invitation, MentorManagement, ReviewResponseMap, SignUpSheet....",
+      "srp": "SRP: 26 class(es) with possible SRP violations (largest: 55 methods; threshold: 7): Assessment360Controller, GradesController, InvitationsController, JoinTeamRequestsController, LotteryController....",
+      "dry": "DRY: 15 duplicate method-body instance(s) across 4 unique method(s).",
+      "lsp": "LSP: 4 override signal(s) \u2014 `AssignmentTeam#import` (arity 3 vs parent 4); `AssignmentTeam#export` (arity 3 vs parent 4); `CourseTeam#import` (arity 3 vs parent 4)...."
+    }
+  }
+}

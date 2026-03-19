@@ -1,5 +1,6 @@
 
 projects.csv
+pr_cache/
 
 dataset_raw.jsonl
 evaluations.jsonl
