@@ -12,8 +12,10 @@ require "json"
 require "digest"
 
 # Thresholds
-LOD_MAX_CHAIN       = 3     # call-chain depth that triggers an LoD violation
-SRP_MAX_METHODS     = 7     # method count threshold
+LOD_FOREIGN_DEPTH   = 2     # LoD: min object boundaries (depth >= 3) when root is foreign
+LONG_CHAIN_MIN_DEPTH = 5    # long_chain: any chain with >= 5 elements
+SRP_MAX_METHODS     = 7     # method count threshold (models, non-controllers)
+SRP_CONTROLLER_MAX_METHODS = 12  # controllers: 7 REST actions + extras is normal
 SRP_MAX_INITS       = 5     # direct .new() instantiations threshold
 CMO_MIN_CLASS_METHS = 3     # minimum class methods before CMO is evaluated
 CMO_RATIO_THRESHOLD = 0.5   # class_methods / total_methods ratio
@@ -25,8 +27,23 @@ ISP_MAX_METHODS       = 6   # modules with more methods than this violate ISP
 ENC_MAX_ACCESSORS     = 3   # max attr_accessor macros before Encapsulation violation
 ENC_MAX_PUBLIC_RATIO  = 0.85 # max ratio of public/total methods
 ENC_MIN_METHODS       = 5   # minimum methods before public ratio check applies
-IE_MIN_EXTERNAL_CALLS = 4   # minimum external calls before InformationExpert activates
-IE_TOLERANCE          = 1   # allowed excess of external over ivar calls
+
+# New detectors (god_object, feature_envy, long_method, shotgun_surgery, ocp)
+GOD_OBJECT_MAX_METHODS   = 15
+GOD_OBJECT_MAX_IVARS    = 10
+GOD_OBJECT_MAX_INITS    = 8
+FEATURE_ENVY_MIN_EXTERNAL = 6
+FEATURE_ENVY_RATIO      = 2.0
+FEATURE_ENVY_CONTROLLER_MIN_EXTERNAL = 10
+FEATURE_ENVY_CONTROLLER_RATIO       = 3.0
+INFO_EXPERT_MIN_EXTERNAL = 8
+INFO_EXPERT_RATIO       = 3.0
+INFO_EXPERT_CONTROLLER_MIN_EXTERNAL = 12
+INFO_EXPERT_CONTROLLER_RATIO       = 4.0
+LONG_METHOD_MAX_LINES   = 20
+SHOTGUN_SURGERY_MIN_EXTERNAL_CLASSES = 8
+OCP_MIN_BRANCHES        = 4
+OCP_TYPE_CHECK_MIN     = 2
 
 # Data models
 MethodRecord = Struct.new(
@@ -36,7 +53,7 @@ MethodRecord = Struct.new(
 
 ClassRecord = Struct.new(
   :name, :file, :type, :superclass, :methods, :source,
-  :attr_reader_count, :attr_writer_count, :attr_accessor_count,
+  :attr_reader_count, :attr_writer_count, :attr_accessor_count, :ivar_count,
   keyword_init: true
 ) do
   def instance_methods_list = methods.reject(&:class_method)
@@ -53,6 +70,21 @@ ClassRecord = Struct.new(
   end
 end
 
+# Exclude Helper and migration classes entirely from Feature Envy / Information Expert.
+# Controllers use higher thresholds instead of full exclusion.
+def excluded_entirely_from_envy_and_expert?(class_record)
+  name = class_record.name.to_s
+  superclass = class_record.superclass.to_s
+  return true if name.end_with?("Helper")
+  return true if superclass.include?("ActiveRecord::Migration")
+  return true if name.match?(/\d{14}/)  # migration timestamp pattern
+  false
+end
+
+def controller_class?(class_record)
+  class_record.name.to_s.end_with?("Controller")
+end
+
 # Text-metric helpers
 module TextMetrics
   module_function
@@ -64,6 +96,88 @@ module TextMetrics
     source.lines.flat_map do |line|
       line.scan(/(?:[a-z_A-Z]\w*\.){2,}[a-z_A-Z]\w*/).map { |m| m.count(".") + 1 }
     end
+  end
+
+  # Rails/framework roots we never flag as LoD (false positive exclusions)
+  LOD_ALLOWED_ROOTS = %w[
+    Rails ENV I18n Time Date logger
+    params request response session flash
+    self
+  ].freeze
+
+  # Terminal method calls we ignore (predicates, not real LoD)
+  LOD_IGNORE_TERMINALS = %w[is_a? kind_of? instance_of? class nil? present? blank?].freeze
+
+  # Local variables: identifiers assigned in method (ident = or ident=)
+  def local_vars_in_method(source)
+    return [] unless source
+
+    source.scan(/\b([a-z_][a-z0-9_]*)\s*=(?!=)/).flatten.uniq
+  end
+
+  # Method parameter names from def line
+  def param_names_in_method(source)
+    return [] unless source
+
+    first_line = source.lines.first.to_s
+    return [] unless first_line =~ /\bdef\s+\w+\s*\(([^)]*)\)/
+
+    $1.scan(/\b([a-z_][a-z0-9_]*)/).flatten.uniq
+  end
+
+  # Block/iterator parameter names (do |x| or { |x, y| })
+  def block_params_in_method(source)
+    return [] unless source
+
+    source.scan(/\|\s*([^|]+)\|/).flatten.flat_map { |m| m.split(/,/).map(&:strip) }.grep(/\A[a-z_][a-z0-9_]*\z/).uniq
+  end
+
+  # Extract chain details: { chain:, depth:, root:, line: }
+  # Root includes @ if present. Use [^\w@] before match so we don't match
+  # "assignment_form.x" as substring of "@assignment_form.x" (root would be wrong).
+  def chain_details_with_lines(source)
+    return [] unless source
+
+    result = []
+    source.lines.each_with_index do |line, idx|
+      line_num = idx + 1
+      line.scan(/(?:^|[^\w@])((\@?[a-zA-Z_][\w:]*)((?:\.[a-zA-Z_][\w]*)+))\b/) do |full, root, _rest|
+        full = full.to_s.strip
+        root = root.to_s.strip
+        next if full.empty?
+        depth = full.count(".") + 1
+        next if LOD_IGNORE_TERMINALS.any? { |t| full.end_with?(".#{t}") }
+        result << { chain: full, depth: depth, root: root, line: line_num }
+      end
+    end
+    result
+  end
+
+  # True LoD: root is foreign (not owned) and depth >= LOD_FOREIGN_DEPTH + 1
+  def lod_violation?(chain_info, source)
+    root = chain_info[:root]
+    depth = chain_info[:depth]
+    return false if depth < LOD_FOREIGN_DEPTH + 1  # need depth 3 for 2 boundaries
+    return false if root.start_with?("@")         # instance variable
+    return false if LOD_ALLOWED_ROOTS.include?(root)
+    return false if local_vars_in_method(source).include?(root)   # local variable
+    return false if param_names_in_method(source).include?(root)   # method parameter
+    return false if block_params_in_method(source).include?(root) # block parameter
+    true
+  end
+
+  # Long chain: purely structural, depth >= LONG_CHAIN_MIN_DEPTH
+  def long_chain_violation?(chain_info)
+    chain_info[:depth] >= LONG_CHAIN_MIN_DEPTH
+  end
+
+  # Same exclusions for long_chain (Rails false positives)
+  def chain_excluded?(chain_info)
+    root = chain_info[:root]
+    return true if root.start_with?("@")
+    return true if LOD_ALLOWED_ROOTS.include?(root)
+    return true if LOD_IGNORE_TERMINALS.any? { |t| chain_info[:chain].end_with?(".#{t}") }
+    false
   end
 
   # Unique class names from ClassName.new calls
@@ -114,6 +228,135 @@ module TextMetrics
     counts = Hash.new(0)
     source.scan(/\b([A-Z]\w*(?:::\w+)*)\.new\b/).flatten.each { |c| counts[c] += 1 }
     counts
+  end
+
+  # Unique instance variable count in class source
+  def ivar_count(source)
+    return 0 unless source
+
+    source.scan(/@([\w]+)/).flatten.uniq.length
+  end
+
+  # Feature Envy: external (receiver.method on @ivar or Constant) vs own (self.method)
+  def feature_envy_counts(source)
+    return { external: 0, own: 0 } unless source
+
+    external = source.scan(/@\w+\.\w+/).length +
+               source.scan(/\b[A-Z]\w*(?:::\w+)*\.\w+/).length
+    own = source.scan(/self\.\w+/).length
+    { external: external, own: own }
+  end
+
+  # OCP: count if/elsif/case branches and type-check calls
+  def ocp_branch_and_type_counts(source)
+    return { branches: 0, elsif_count: 0, type_checks: 0 } unless source
+
+    branches = source.scan(/\b(?:if|elsif|when)\b/).length + source.scan(/\bcase\b/).length
+    elsif_count = source.scan(/\belsif\b/).length
+    type_checks = source.scan(/\.(?:is_a\?|kind_of\?|instance_of\?)\b/).length +
+                  source.scan(/\.class\s*==/).length
+    { branches: branches, elsif_count: elsif_count, type_checks: type_checks }
+  end
+
+  # Words to exclude (common English, single letters, Ruby built-ins)
+  SHOTGUN_EXCLUDED = %w[
+    A I
+    The If This That For You We There Please Not And Or But
+    Returns True False Add Get Set With From When Then Also Note See Use
+    String Integer Float Array Hash Symbol NilClass TrueClass FalseClass
+    Numeric Object BasicObject Kernel Comparable Enumerable IO
+    Doing Provide Removes Total Deleting Saved Scored
+  ].freeze
+
+  # Strip comments and string literals from source before scanning for constants
+  def strip_comments_and_strings(source)
+    return "" unless source
+
+    s = source.dup
+
+    # Remove double-quoted strings (handles \")
+    s = s.gsub(/"(?:[^"\\]|\\.)*"/m, " ")
+    # Remove single-quoted strings (handles \')
+    s = s.gsub(/'([^'\\]|\\.)*'/m, " ")
+    # Remove %q{}, %Q{}, %w[], etc.
+    s = s.gsub(/%[qQwWxr]?\([^)]*\)/m, " ")
+    s = s.gsub(/%[qQwWxr]?\[[^\]]*\]/m, " ")
+    s = s.gsub(/%[qQwWxr]?\{[^}]*\}/m, " ")
+    s = s.gsub(/%[qQwWxr]?<[^>]*>/m, " ")
+    # Remove heredocs: <<IDENTIFIER ... \nIDENTIFIER
+    s = s.gsub(/<<[-~]?['"]?([A-Za-z_][A-Za-z0-9_]*)['"]?\s*\n.*?^\s*\1\b/m, " ")
+    # Remove line comments (whole line or inline)
+    s = s.lines.map do |line|
+      in_str = false
+      quote = nil
+      i = 0
+      while i < line.length
+        c = line[i]
+        if !in_str && c == "#"
+          line = line[0...i] + " " * (line.length - i)
+          break
+        end
+        if (c == '"' || c == "'") && (i == 0 || line[i - 1] != "\\")
+          if in_str && quote == c
+            in_str = false
+          elsif !in_str
+            in_str = true
+            quote = c
+          end
+        end
+        i += 1
+      end
+      line
+    end.join
+
+    s
+  end
+
+  # Unique external class constants referenced in file source (code only, no comments/strings)
+  def external_class_references(source, defined_names = [])
+    return [] unless source
+
+    code = strip_comments_and_strings(source)
+    refs = []
+
+    # ClassName.method_call (constant followed by . and lowercase method)
+    code.scan(/\b([A-Z][a-zA-Z0-9_]*(?:::[A-Z][a-zA-Z0-9_]*)*)\.([a-z_][a-zA-Z0-9_]*)/) do |const, method|
+      refs << const
+    end
+
+    # ClassName.new (instantiation)
+    code.scan(/\b([A-Z][a-zA-Z0-9_]*(?:::[A-Z][a-zA-Z0-9_]*)*)\.new\b/) do |const|
+      refs << const
+    end
+
+    # include/extend/prepend ClassName
+    code.scan(/\b(?:include|extend|prepend)\s+([A-Z][a-zA-Z0-9_]*(?:::[A-Z][a-zA-Z0-9_]*)*)/) do |const|
+      refs << const
+    end
+
+    # inherit < ClassName
+    code.scan(/<\s*([A-Z][a-zA-Z0-9_]*(?:::[A-Z][a-zA-Z0-9_]*)*)/) do |const|
+      refs << const
+    end
+
+    # rescue ClassName
+    code.scan(/\brescue\s+([A-Z][a-zA-Z0-9_]*(?:::[A-Z][a-zA-Z0-9_]*)*)/) do |const|
+      refs << const
+    end
+
+    # ClassName:: (namespace access)
+    code.scan(/\b([A-Z][a-zA-Z0-9_]*(?:::[A-Z][a-zA-Z0-9_]*)*)::/) do |const|
+      refs << const
+    end
+
+    refs = refs.uniq - defined_names
+
+    # Exclude single letters, common words, Ruby built-ins
+    refs.reject do |name|
+      name.length <= 1 ||
+        SHOTGUN_EXCLUDED.include?(name) ||
+        name.include?("::") && SHOTGUN_EXCLUDED.include?(name.split("::").first)
+    end
   end
 end
 
@@ -189,7 +432,8 @@ class AnalysisVisitor < Prism::Visitor
       source:              cls_source,
       attr_reader_count:   attr_counts[:attr_reader],
       attr_writer_count:   attr_counts[:attr_writer],
-      attr_accessor_count: attr_counts[:attr_accessor]
+      attr_accessor_count: attr_counts[:attr_accessor],
+      ivar_count:          TextMetrics.ivar_count(cls_source)
     )
   end
 
@@ -278,16 +522,42 @@ module Detectors
 
     class_records.each do |cr|
       cr.methods.each do |method|
-        method.call_chain_lengths.each do |depth|
-          next if depth < LOD_MAX_CHAIN
+        TextMetrics.chain_details_with_lines(method.body).each do |info|
+          next unless TextMetrics.lod_violation?(info, method.body)
 
           violations << {
             "file"        => cr.file,
             "class_name"  => cr.name,
             "method_name" => method.name,
-            "line"        => method.line,
-            "chain_depth" => depth,
-            "description" => "Method `#{method.name}` in `#{cr.name}` has a call chain of depth #{depth} (max #{LOD_MAX_CHAIN - 1})."
+            "chain"       => info[:chain],
+            "depth"       => info[:depth],
+            "line"        => info[:line],
+            "description" => "Method `#{method.name}` in `#{cr.name}` accesses foreign object through `#{info[:chain]}` (LoD violation)."
+          }
+        end
+      end
+    end
+
+    violations
+  end
+
+  def long_chain_violations(class_records)
+    violations = []
+
+    class_records.each do |cr|
+      cr.methods.each do |method|
+        TextMetrics.chain_details_with_lines(method.body).each do |info|
+          next unless TextMetrics.long_chain_violation?(info)
+          next if TextMetrics.chain_excluded?(info)
+
+          violations << {
+            "file"        => cr.file,
+            "class_name"  => cr.name,
+            "method_name" => method.name,
+            "chain"       => info[:chain],
+            "depth"       => info[:depth],
+            "line"        => info[:line],
+            "description" => "Method `#{method.name}` in `#{cr.name}` has long chain `#{info[:chain]}` (#{info[:depth]} levels)."
           }
         end
       end
@@ -334,13 +604,14 @@ module Detectors
       instantiations = cr.methods.flat_map { |m| TextMetrics.instantiations(m.body) }.uniq
       external_count = instantiations.length
 
-      next if method_count < SRP_MAX_METHODS && external_count < SRP_MAX_INITS
+      srp_limit = cr.name.to_s.end_with?("Controller") ? SRP_CONTROLLER_MAX_METHODS : SRP_MAX_METHODS
+      next if method_count < srp_limit && external_count < SRP_MAX_INITS
 
       description =
-        if method_count >= SRP_MAX_METHODS && external_count >= SRP_MAX_INITS
+        if method_count >= srp_limit && external_count >= SRP_MAX_INITS
           "Class `#{cr.name}` has #{method_count} methods AND #{external_count} direct instantiations – likely doing too much."
-        elsif method_count >= SRP_MAX_METHODS
-          "Class `#{cr.name}` has #{method_count} methods (limit #{SRP_MAX_METHODS}); may violate SRP."
+        elsif method_count >= srp_limit
+          "Class `#{cr.name}` has #{method_count} methods (limit #{srp_limit}); may violate SRP."
         else
           "Class `#{cr.name}` directly instantiates #{external_count} collaborators (limit #{SRP_MAX_INITS}); consider dependency injection."
         end
@@ -425,15 +696,126 @@ module Detectors
     violations = []
 
     class_records.each do |cr|
-      count = TextMetrics.conditional_dispatch_count(cr.source)
-      next if count <= OCP_MAX_CONDITIONALS
+      cr.methods.each do |method|
+        counts = TextMetrics.ocp_branch_and_type_counts(method.body)
+        branches = counts[:branches]
+        elsif_count = counts[:elsif_count]
+        type_checks = counts[:type_checks]
+
+        ocp_signal = (branches >= OCP_MIN_BRANCHES && type_checks >= OCP_TYPE_CHECK_MIN) ||
+                     (method.name.match?(/\A(?:update_|handle_|process_)/) && elsif_count >= 3)
+
+        next unless ocp_signal
+
+        violations << {
+          "file"         => cr.file,
+          "class_name"   => cr.name,
+          "method_name"  => method.name,
+          "branch_count" => branches,
+          "type_checks"  => type_checks,
+          "description"  => "Method `#{method.name}` in `#{cr.name}` has #{branches} branches and #{type_checks} type checks – may violate OCP."
+        }
+      end
+    end
+
+    violations
+  end
+
+  def god_object_violations(class_records)
+    violations = []
+
+    class_records.each do |cr|
+      next if cr.type == :module
+
+      method_count = cr.total_methods
+      ivar_count   = cr.ivar_count.to_i
+      external_count = cr.instantiation_counts.keys.length
+
+      next unless method_count >= GOD_OBJECT_MAX_METHODS ||
+                  ivar_count >= GOD_OBJECT_MAX_IVARS ||
+                  external_count >= GOD_OBJECT_MAX_INITS
 
       violations << {
-        "file"                       => cr.file,
-        "class_name"                 => cr.name,
-        "conditional_dispatch_count" => count,
-        "description"                => "Class `#{cr.name}` has #{count} type-checking conditionals " \
-                                        "(is_a?, instance_of?, case on constants) – may violate OCP."
+        "file"           => cr.file,
+        "class_name"     => cr.name,
+        "method_count"   => method_count,
+        "ivar_count"     => ivar_count,
+        "external_count" => external_count,
+        "description"    => "Class `#{cr.name}` is a God Object: #{method_count} methods, #{ivar_count} ivars, #{external_count} external instantiations."
+      }
+    end
+
+    violations
+  end
+
+  def feature_envy_violations(class_records)
+    violations = []
+
+    class_records.each do |cr|
+      next if excluded_entirely_from_envy_and_expert?(cr)
+
+      min_external, ratio = controller_class?(cr) ? [FEATURE_ENVY_CONTROLLER_MIN_EXTERNAL, FEATURE_ENVY_CONTROLLER_RATIO] : [FEATURE_ENVY_MIN_EXTERNAL, FEATURE_ENVY_RATIO]
+
+      cr.methods.each do |method|
+        counts = TextMetrics.feature_envy_counts(method.body)
+        external = counts[:external]
+        own = counts[:own]
+
+        next unless external >= min_external
+        next unless external > (own * ratio)
+
+        violations << {
+          "file"                 => cr.file,
+          "class_name"           => cr.name,
+          "method_name"          => method.name,
+          "external_references"  => external,
+          "own_references"        => own,
+          "description"          => "Method `#{method.name}` in `#{cr.name}` exhibits Feature Envy: #{external} external refs vs #{own} own."
+        }
+      end
+    end
+
+    violations
+  end
+
+  def long_method_violations(class_records)
+    violations = []
+
+    class_records.each do |cr|
+      cr.methods.each do |method|
+        line_count = method.body.lines.length
+        next if line_count < LONG_METHOD_MAX_LINES
+
+        violations << {
+          "file"       => cr.file,
+          "class_name" => cr.name,
+          "method_name" => method.name,
+          "line_count" => line_count,
+          "start_line" => method.line,
+          "description" => "Method `#{method.name}` in `#{cr.name}` is #{line_count} lines (max #{LONG_METHOD_MAX_LINES - 1})."
+        }
+      end
+    end
+
+    violations
+  end
+
+  def shotgun_surgery_violations(class_records, file_sources)
+    violations = []
+
+    file_sources.each do |file_path, source|
+      defined_names = class_records
+        .select { |cr| cr.file == file_path }
+        .map(&:name)
+      refs = TextMetrics.external_class_references(source, defined_names)
+      count = refs.length
+      next if count < SHOTGUN_SURGERY_MIN_EXTERNAL_CLASSES
+
+      violations << {
+        "file"                  => file_path,
+        "external_class_count"  => count,
+        "classes_referenced"    => refs,
+        "description"           => "File references #{count} external classes – may cause shotgun surgery when modified."
       }
     end
 
@@ -525,13 +907,17 @@ module Detectors
     violations = []
 
     class_records.each do |cr|
+      next if excluded_entirely_from_envy_and_expert?(cr)
+
+      min_external, ratio = controller_class?(cr) ? [INFO_EXPERT_CONTROLLER_MIN_EXTERNAL, INFO_EXPERT_CONTROLLER_RATIO] : [INFO_EXPERT_MIN_EXTERNAL, INFO_EXPERT_RATIO]
+
       cr.methods.each do |method|
         dist     = TextMetrics.information_distribution(method.body)
         ivar     = dist[:ivar]
         external = dist[:external]
 
-        next if external < IE_MIN_EXTERNAL_CALLS
-        next unless external > ivar + IE_TOLERANCE
+        next if external < min_external
+        next unless external > (ivar * ratio)
 
         violations << {
           "file"           => cr.file,
@@ -554,6 +940,7 @@ end
 def analyze_files(file_paths)
   all_records = []
   parse_errors = []
+  file_sources = {}
 
   file_paths.each do |path|
     unless File.exist?(path)
@@ -562,6 +949,7 @@ def analyze_files(file_paths)
     end
 
     source = File.read(path, encoding: "utf-8", invalid: :replace, undef: :replace)
+    file_sources[path] = source
     result = Prism.parse(source)
 
     unless result.success?
@@ -579,28 +967,38 @@ def analyze_files(file_paths)
 
   class_index = all_records.each_with_object({}) { |cr, h| h[cr.name] = cr }
 
-  srp_sigs  = Detectors.srp_signals(all_records)
-  ocp_viols = Detectors.ocp_violations(all_records)
-  lsp_sigs  = Detectors.lsp_signals(all_records, class_index)
-  dip_viols = Detectors.dip_violations(all_records)
-  isp_viols = Detectors.isp_violations(all_records)
-  lod_viols = Detectors.lod_violations(all_records)
-  dry_viols = Detectors.dry_violations(all_records)
-  ie_viols  = Detectors.information_expert_violations(all_records)
-  enc_viols = Detectors.encapsulation_violations(all_records)
-  cmo_viols = Detectors.cmo_violations(all_records)
+  srp_sigs   = Detectors.srp_signals(all_records)
+  ocp_viols  = Detectors.ocp_violations(all_records)
+  lsp_sigs   = Detectors.lsp_signals(all_records, class_index)
+  dip_viols  = Detectors.dip_violations(all_records)
+  isp_viols  = Detectors.isp_violations(all_records)
+  lod_viols      = Detectors.lod_violations(all_records)
+  long_chain_viols = Detectors.long_chain_violations(all_records)
+  dry_viols  = Detectors.dry_violations(all_records)
+  ie_viols   = Detectors.information_expert_violations(all_records)
+  enc_viols  = Detectors.encapsulation_violations(all_records)
+  cmo_viols  = Detectors.cmo_violations(all_records)
+  god_viols  = Detectors.god_object_violations(all_records)
+  envy_viols = Detectors.feature_envy_violations(all_records)
+  long_viols = Detectors.long_method_violations(all_records)
+  shot_viols = Detectors.shotgun_surgery_violations(all_records, file_sources)
 
   output = {
-    "srp"                   => { "signals"    => srp_sigs,  "count" => srp_sigs.length  },
-    "ocp"                   => { "violations" => ocp_viols, "count" => ocp_viols.length },
-    "lsp"                   => { "signals"    => lsp_sigs,  "count" => lsp_sigs.length  },
+    "srp"                   => { "signals"    => srp_sigs,   "count" => srp_sigs.length  },
+    "ocp"                   => { "violations" => ocp_viols,  "count" => ocp_viols.length },
+    "lsp"                   => { "signals"    => lsp_sigs,   "count" => lsp_sigs.length  },
     "dip"                   => { "violations" => dip_viols, "count" => dip_viols.length },
-    "isp"                   => { "violations" => isp_viols, "count" => isp_viols.length },
-    "law_of_demeter"        => { "violations" => lod_viols, "count" => lod_viols.length },
+    "isp"                   => { "violations" => isp_viols,  "count" => isp_viols.length },
+    "lod"                   => { "violations" => lod_viols,       "count" => lod_viols.length },
+    "long_chain"            => { "violations" => long_chain_viols, "count" => long_chain_viols.length },
     "dry"                   => { "violations" => dry_viols, "count" => dry_viols.length },
-    "information_expert"    => { "violations" => ie_viols,  "count" => ie_viols.length  },
-    "encapsulation"         => { "violations" => enc_viols, "count" => enc_viols.length },
-    "overuse_class_methods" => { "violations" => cmo_viols, "count" => cmo_viols.length }
+    "information_expert"    => { "violations" => ie_viols,   "count" => ie_viols.length  },
+    "encapsulation"         => { "violations" => enc_viols,  "count" => enc_viols.length },
+    "cmo"                   => { "violations" => cmo_viols,  "count" => cmo_viols.length },
+    "god_object"            => { "violations" => god_viols,  "count" => god_viols.length },
+    "feature_envy"          => { "violations" => envy_viols, "count" => envy_viols.length },
+    "long_method"           => { "violations" => long_viols, "count" => long_viols.length },
+    "shotgun_surgery"       => { "violations" => shot_viols, "count" => shot_viols.length }
   }
 
   output["parse_errors"] = parse_errors unless parse_errors.empty?

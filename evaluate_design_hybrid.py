@@ -1,15 +1,15 @@
 #!/usr/bin/env python3
 """
-evaluate_design_hybrid.py  – Hybrid Static + LLM Design Principle Evaluator.
+evaluate_design_hybrid.py  – LLM-Primary Design Violation Evaluator.
 
-Implements the hybrid pipeline from NEW-DESIGN.md §6–§7:
+The LLM finds and counts violations (thesis goal). Static analysis runs for
+reference/comparison but is not used for output.
 
   1. Read dataset_v2.jsonl (produced by extract_data_v2.py).
-     Falls back to dataset_raw.jsonl (diff-only mode) if full_files is absent.
   2. For each project:
-       a. Run static analysis on full_files (Ruby + TypeScript).
-       b. Build a hybrid prompt:  static findings  +  code/diff  +  wiki.
-       c. Call Ollama for structured JSON output (violation counts + summary).
+       a. Run static analysis (for reference; stored in static_findings).
+       b. Chunk code into batches (50K chars each) so LLM sees more.
+       c. Call Ollama per batch; sum violation counts across batches.
        d. Write result to evaluations_hybrid.jsonl immediately (crash-safe).
 
 Output record schema (same as analyze_violations.py for compatibility):
@@ -57,50 +57,38 @@ OLLAMA_URL      = "http://localhost:11434/api/generate"
 OLLAMA_TAGS_URL = "http://localhost:11434/api/tags"
 DEFAULT_MODEL   = "deepseek-coder-v2:16b-lite-instruct-q4_K_M"
 
-# Maximum characters of code content sent to LLM (prevents token overflow)
-MAX_CODE_CHARS = 14_000
+# Maximum characters of code per batch (increased so LLM sees more; many models support 32K+ tokens)
+MAX_CODE_CHARS = 50_000
 MAX_DIFF_CHARS = 10_000
 
 # ─────────────────────────────────────────────────────────────────────────────
-# Hybrid prompt template (NEW-DESIGN.md §6)
+# LLM-as-primary prompt: the LLM finds and counts violations (thesis goal).
+# Static analysis is optional reference only.
 # ─────────────────────────────────────────────────────────────────────────────
-HYBRID_PROMPT = """\
-You are a senior software engineer evaluating design principle violations.
-Static analysis has already been run and found the following:
+LLM_COUNT_PROMPT = """\
+You are a strict code reviewer. Your job is to COUNT design principle violations in the code below.
 
-## Static Analysis Findings
-{static_summary}
-
-## Wiki / Design Documentation
-{wiki}
-
-## Code
+## Code to analyze
 {code}
 
----
+## Design principles (count each occurrence)
+- **LoD (Law of Demeter)**: Method chains > 4 levels (e.g. obj.a.b.c.d.e). Count each chain.
+- **SRP**: Classes with > 7 methods or multiple unrelated responsibilities. Count each class.
+- **DRY**: Duplicate/similar logic. Count each duplication.
+- **ClassMethodOveruse**: Classes where > 50% of methods are class methods. Count each class.
+- **LSP**: Override with different arity than parent. Count each override.
 
-Your task:
-1. Validate the static findings above. Are they genuine violations?
-2. Look for any additional violations the static analysis may have missed.
-3. For LSP, check whether subtypes can substitute for base types without breaking callers.
+Be thorough. Count every violation you see. Do not be lenient.
 
-Return ONLY valid JSON (no markdown, no extra text) with this exact structure:
+Return ONLY valid JSON (no markdown):
 {{
-  "violations": {{
-    "SRP": <integer count of SRP violations>,
-    "DRY": <integer count of DRY violations>,
-    "LoD": <integer count of Law of Demeter violations>,
-    "ClassMethodOveruse": <integer count of class-method overuse violations>,
-    "LSP": <integer count of LSP violations>
-  }},
-  "total_violations": <sum of all violation counts>,
-  "confidence": <integer 1–5, how confident you are>,
-  "summary": "<1–2 sentence summary of the main design issues>"
+  "violations": {{"SRP": N, "DRY": N, "LoD": N, "ClassMethodOveruse": N, "LSP": N}},
+  "total_violations": N,
+  "confidence": 1-5,
+  "summary": "1-2 sentence summary of main issues"
 }}
-
-Focus on: SRP (single responsibility), DRY (no duplication), LoD (no long chain calls),
-ClassMethodOveruse (appropriate use of class vs instance methods), LSP (subtype substitutability).\
 """
+
 
 # ─────────────────────────────────────────────────────────────────────────────
 # Ollama helpers (shared logic kept consistent with analyze_violations.py)
@@ -216,43 +204,43 @@ def _build_static_summary(findings: dict) -> str:
     return header + body
 
 
-def _build_code_section(full_files: list[dict], diff: str) -> str:
+def _build_code_batches(full_files: list[dict], diff: str, max_chars: int = MAX_CODE_CHARS) -> list[str]:
     """
-    Build the code section: prefer full files; fall back to diff.
-    Truncates to MAX_CODE_CHARS to avoid token overflow.
+    Split code into batches, each under max_chars. Enables chunked LLM analysis
+    so the model sees more code across multiple calls.
     """
+    batches: list[str] = []
+    current: list[str] = []
+    current_len = 0
+
     if full_files:
-        parts = []
-        total = 0
         for f in full_files:
-            path    = f.get("path", "unknown")
+            path = f.get("path", "unknown")
             content = f.get("content", "")
-            chunk   = f"### {path}\n```\n{content}\n```"
-            if total + len(chunk) > MAX_CODE_CHARS:
-                # Add as much as fits
-                remaining = MAX_CODE_CHARS - total
-                if remaining > 200:
-                    parts.append(f"### {path}\n```\n{content[:remaining]}\n... (truncated)\n```")
-                break
-            parts.append(chunk)
-            total += len(chunk)
-        if parts:
-            return "\n\n".join(parts)
-
-    # Fallback: diff
-    if diff:
-        truncated = diff[:MAX_DIFF_CHARS]
-        if len(diff) > MAX_DIFF_CHARS:
+            chunk = f"### {path}\n```\n{content}\n```"
+            if current_len + len(chunk) > max_chars and current:
+                batches.append("\n\n".join(current))
+                current = []
+                current_len = 0
+            if len(chunk) > max_chars:
+                chunk = f"### {path}\n```\n{content[:max_chars - 100]}\n... (truncated)\n```"
+            current.append(chunk)
+            current_len += len(chunk)
+        if current:
+            batches.append("\n\n".join(current))
+    elif diff:
+        truncated = diff[:max_chars]
+        if len(diff) > max_chars:
             truncated += "\n\n... (diff truncated)"
-        return f"### Diff\n```diff\n{truncated}\n```"
+        batches.append(f"### Diff\n```diff\n{truncated}\n```")
 
-    return "(no code or diff available)"
+    return batches if batches else ["(no code or diff available)"]
 
 
 # ─────────────────────────────────────────────────────────────────────────────
 # Main pipeline
 # ─────────────────────────────────────────────────────────────────────────────
-def process_record(record: dict, model: str) -> dict:
+def process_record(record: dict, model: str, max_chars: int = MAX_CODE_CHARS) -> dict:
     project_id  = record.get("project_id", "unknown")
     diff        = record.get("diff", "")
     wiki        = record.get("wiki_content", "")
@@ -260,47 +248,44 @@ def process_record(record: dict, model: str) -> dict:
 
     logger.info("Analyzing %s (%d full file(s))", project_id, len(full_files))
 
-    # Step 1: Static analysis
+    # Step 1: Static analysis (for reference/comparison; LLM is primary for thesis)
     static_findings = _run_static_analysis(full_files) if full_files else {}
-    if full_files and not static_findings:
-        logger.debug("Static analysis returned empty for %s", project_id)
 
-    # Step 2: Build prompt
-    static_summary = _build_static_summary(static_findings)
-    code_section   = _build_code_section(full_files, diff)
+    # Step 2: Chunked LLM analysis – send code in batches, sum counts (LLM is primary)
+    batches = _build_code_batches(full_files, diff, max_chars=max_chars)
+    if len(batches) > 1:
+        logger.info("  %s: %d code batch(es) for LLM", project_id, len(batches))
+    accumulated = {"SRP": 0, "DRY": 0, "LoD": 0, "ClassMethodOveruse": 0, "LSP": 0}
+    summary = ""
+    confidence = 0
 
-    prompt = HYBRID_PROMPT.format(
-        static_summary=static_summary,
-        wiki=wiki or "(none)",
-        code=code_section,
-    )
+    for i, code_batch in enumerate(batches):
+        prompt = LLM_COUNT_PROMPT.format(code=code_batch)
+        try:
+            raw = call_ollama(prompt, model=model)
+            data = parse_llm_json(raw)
+            v = data.get("violations", {})
+            for key in accumulated:
+                accumulated[key] += v.get(key, 0)
+            if i == len(batches) - 1:
+                summary = data.get("summary", "")
+                confidence = data.get("confidence", 0)
+        except Exception as exc:
+            logger.error("Ollama failed for %s batch %d: %s", project_id, i + 1, exc)
 
-    # Step 3: Call LLM
-    try:
-        raw  = call_ollama(prompt, model=model)
-        data = parse_llm_json(raw)
-    except Exception as exc:
-        logger.error("Ollama failed for %s: %s", project_id, exc)
-        data = {}
+    total = sum(accumulated.values())
 
-    v = data.get("violations", {})
     return {
         "project_id":      project_id,
         "static_findings": {
             k: v2
             for k, v2 in static_findings.items()
-            if k not in ("summaries",)  # don't store summaries in output
+            if k not in ("summaries",)
         },
-        "violations": {
-            "SRP":              v.get("SRP", 0),
-            "DRY":              v.get("DRY", 0),
-            "LoD":              v.get("LoD", 0),
-            "ClassMethodOveruse": v.get("ClassMethodOveruse", 0),
-            "LSP":              v.get("LSP", 0),
-        },
-        "total_violations": data.get("total_violations", sum(v.values()) if v else 0),
-        "confidence":       data.get("confidence", 0),
-        "summary":          data.get("summary", ""),
+        "violations":       accumulated,
+        "total_violations": total,
+        "confidence":       confidence,
+        "summary":          summary,
     }
 
 
@@ -341,7 +326,13 @@ def main() -> None:
     parser.add_argument(
         "--no-static",
         action="store_true",
-        help="Disable static analysis; use LLM-only mode (same as evaluate_design.py).",
+        help="Disable static analysis; use LLM-only mode.",
+    )
+    parser.add_argument(
+        "--max-chars",
+        type=int,
+        default=MAX_CODE_CHARS,
+        help=f"Max chars per code batch (default {MAX_CODE_CHARS}). Lower if model has small context.",
     )
     args = parser.parse_args()
 
@@ -376,7 +367,7 @@ def main() -> None:
             if args.no_static:
                 record.pop("full_files", None)
 
-            result = process_record(record, model=model)
+            result = process_record(record, model=model, max_chars=args.max_chars)
 
             with open(args.output, mode, encoding="utf-8") as f_out:
                 f_out.write(json.dumps(result, ensure_ascii=False) + "\n")

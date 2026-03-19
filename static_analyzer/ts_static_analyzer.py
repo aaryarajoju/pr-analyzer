@@ -30,33 +30,64 @@ _PROJECT_ROOT = _MODULE_DIR.parent
 _PARSERS_DIR  = _PROJECT_ROOT / "parsers"
 _TS_PARSER    = _PARSERS_DIR / "ts_parser.ts"
 
-# LoD threshold (mirrors LOD_MAX_CHAIN in static_analyzer.rb)
-LOD_MAX_CHAIN = 3
+# LoD: min depth when root is foreign (depth 3 = 2 boundaries)
+LOD_FOREIGN_DEPTH = 2
+LONG_CHAIN_MIN_DEPTH = 5
+
+# TS roots we never flag (false positive exclusions)
+TS_LOD_ALLOWED_ROOTS = frozenset({
+    "this", "process", "e", "router", "console", "Object", "Array", "Math", "Promise",
+})
+
+
+def _chain_details_from_source(source: str, file_path: str) -> list[dict]:
+    """Extract all chains with depth >= 2, returning {chain, depth, root, line}."""
+    result = []
+    for lineno, line in enumerate(source.splitlines(), start=1):
+        matches = re.findall(
+            r"\b([a-zA-Z_$][a-zA-Z0-9_$]*)((?:\.[a-zA-Z_$][a-zA-Z0-9_$]*)+)\b",
+            line,
+        )
+        for root, rest in matches:
+            depth = rest.count(".") + 1
+            chain = root + rest
+            result.append({"chain": chain, "depth": depth, "root": root, "line": lineno})
+    return result
 
 
 def _lod_from_source(source: str, file_path: str) -> list[dict]:
-    """
-    Scan TypeScript / TSX source for method-call chains deeper than LOD_MAX_CHAIN.
-    Uses a simple regex, identical in spirit to TextMetrics.call_chain_lengths in Ruby.
-    """
+    """True LoD: root is foreign (not this, process, etc.) and depth >= 3."""
     violations = []
-    for lineno, line in enumerate(source.splitlines(), start=1):
-        # Match: identifier.identifier.identifier... (with optional ()[] at the end)
-        # We ignore chains that start with capital letters (type paths like Foo.Bar.Baz)
-        matches = re.findall(
-            r"(?:[a-z_$][a-zA-Z0-9_$]*\.){2,}[a-zA-Z_$][a-zA-Z0-9_$]*",
-            line,
-        )
-        for m in matches:
-            depth = m.count(".") + 1
-            if depth >= LOD_MAX_CHAIN:
-                violations.append({
-                    "file":        file_path,
-                    "line":        lineno,
-                    "chain":       m.strip(),
-                    "chain_depth": depth,
-                    "description": f"Call chain of depth {depth} at line {lineno} in {file_path}.",
-                })
+    for info in _chain_details_from_source(source, file_path):
+        if info["depth"] < LOD_FOREIGN_DEPTH + 1:
+            continue
+        if info["root"] in TS_LOD_ALLOWED_ROOTS:
+            continue
+        violations.append({
+            "file":        file_path,
+            "line":        info["line"],
+            "chain":       info["chain"],
+            "depth":       info["depth"],
+            "description": f"Foreign object chain `{info['chain']}` at line {info['line']} in {file_path}.",
+        })
+    return violations
+
+
+def _long_chain_from_source(source: str, file_path: str) -> list[dict]:
+    """Long chain: any chain >= 5 deep, excluding allowed roots."""
+    violations = []
+    for info in _chain_details_from_source(source, file_path):
+        if info["depth"] < LONG_CHAIN_MIN_DEPTH:
+            continue
+        if info["root"] in TS_LOD_ALLOWED_ROOTS:
+            continue
+        violations.append({
+            "file":        file_path,
+            "line":        info["line"],
+            "chain":       info["chain"],
+            "depth":       info["depth"],
+            "description": f"Long chain `{info['chain']}` ({info['depth']} levels) at line {info['line']} in {file_path}.",
+        })
     return violations
 
 
@@ -123,15 +154,12 @@ def analyze_ts_files(files: list[dict]) -> dict:
     """
     Run TypeScript static analysis on one or more TS/TSX files.
 
-    Parameters
-    ----------
-    files : list of {"path": str, "content": str}
-
     Returns
     -------
-    dict with keys: lod, cmo  (partial findings — srp/dry/lsp left empty for LLM)
+    dict with keys: lod, long_chain, cmo
     """
     lod_violations: list[dict] = []
+    long_chain_violations: list[dict] = []
     cmo_violations: list[dict] = []
 
     for f in files:
@@ -140,15 +168,15 @@ def analyze_ts_files(files: list[dict]) -> dict:
         if not content:
             continue
 
-        # LoD: regex scan
         lod_violations.extend(_lod_from_source(content, path))
+        long_chain_violations.extend(_long_chain_from_source(content, path))
 
-        # CMO + richer parser info
         ts_out = _run_ts_parser(path, content)
         if ts_out:
             cmo_violations.extend(_cmo_from_ts_output(ts_out, path))
 
     return {
-        "lod": {"violations": lod_violations, "count": len(lod_violations)},
-        "cmo": {"violations": cmo_violations, "count": len(cmo_violations)},
+        "lod":        {"violations": lod_violations, "count": len(lod_violations)},
+        "long_chain": {"violations": long_chain_violations, "count": len(long_chain_violations)},
+        "cmo":        {"violations": cmo_violations, "count": len(cmo_violations)},
     }

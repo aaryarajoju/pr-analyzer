@@ -8,7 +8,7 @@ Python callers use this module to extract + summarize SRP signals.
 
 from __future__ import annotations
 
-SRP_MAX_METHODS = 7   # Must match SRP_MAX_METHODS in static_analyzer.rb
+SRP_MAX_METHODS = 7   # Non-controllers. Controllers use SRP_CONTROLLER_MAX_METHODS=12.
 
 
 def extract_srp(findings: dict) -> dict:
@@ -26,7 +26,7 @@ def summarize_srp(srp: dict) -> str:
     max_methods = max((s.get("method_count", 0) for s in signals), default=0)
     return (
         f"SRP: {count} class(es) with possible SRP violations "
-        f"(largest: {max_methods} methods; threshold: {SRP_MAX_METHODS}): "
+        f"(largest: {max_methods} methods; threshold: 7/12 for non-controller/controller): "
         + ", ".join(names[:5])
         + ("..." if len(names) > 5 else "")
         + "."

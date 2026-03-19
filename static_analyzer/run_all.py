@@ -41,10 +41,18 @@ from pathlib import Path
 from .ruby_static_analyzer import analyze_ruby_files
 from .ts_static_analyzer import analyze_ts_files
 from .lod_detector import extract_lod, summarize_lod
+from .long_chain_detector import extract_long_chain, summarize_long_chain
 from .cmo_detector import extract_cmo, summarize_cmo
 from .srp_detector import extract_srp, summarize_srp
 from .dry_detector import extract_dry, summarize_dry
 from .lsp_detector import extract_lsp, summarize_lsp
+from .god_object_detector import extract_god_object, summarize_god_object
+from .feature_envy_detector import extract_feature_envy, summarize_feature_envy
+from .long_method_detector import extract_long_method, summarize_long_method
+from .shotgun_surgery_detector import extract_shotgun_surgery, summarize_shotgun_surgery
+from .ocp_detector import extract_ocp, summarize_ocp
+from .dip_detector import extract_dip, summarize_dip
+from .information_expert_detector import extract_information_expert, summarize_information_expert
 
 logger = logging.getLogger(__name__)
 
@@ -84,6 +92,7 @@ def _merge_findings(ruby_findings: dict, ts_findings: dict) -> dict:
 
     merged = {
         "lod": merge_section("lod", "violations"),
+        "long_chain": merge_section("long_chain", "violations"),
         "cmo": merge_section("cmo", "violations"),
         "srp": {"signals": ruby_findings.get("srp", {}).get("signals", []),
                 "count":   ruby_findings.get("srp", {}).get("count", 0)},
@@ -91,6 +100,20 @@ def _merge_findings(ruby_findings: dict, ts_findings: dict) -> dict:
                 "count":       ruby_findings.get("dry", {}).get("count", 0)},
         "lsp": {"signals": ruby_findings.get("lsp", {}).get("signals", []),
                 "count":   ruby_findings.get("lsp", {}).get("count", 0)},
+        "god_object":      {"violations": ruby_findings.get("god_object", {}).get("violations", []),
+                           "count":      ruby_findings.get("god_object", {}).get("count", 0)},
+        "feature_envy":   {"violations": ruby_findings.get("feature_envy", {}).get("violations", []),
+                           "count":      ruby_findings.get("feature_envy", {}).get("count", 0)},
+        "long_method":    {"violations": ruby_findings.get("long_method", {}).get("violations", []),
+                           "count":      ruby_findings.get("long_method", {}).get("count", 0)},
+        "shotgun_surgery": {"violations": ruby_findings.get("shotgun_surgery", {}).get("violations", []),
+                            "count":      ruby_findings.get("shotgun_surgery", {}).get("count", 0)},
+        "ocp":            {"violations": ruby_findings.get("ocp", {}).get("violations", []),
+                           "count":      ruby_findings.get("ocp", {}).get("count", 0)},
+        "dip":            {"violations": ruby_findings.get("dip", {}).get("violations", []),
+                           "count":      ruby_findings.get("dip", {}).get("count", 0)},
+        "information_expert": {"violations": ruby_findings.get("information_expert", {}).get("violations", []),
+                              "count":      ruby_findings.get("information_expert", {}).get("count", 0)},
     }
 
     # Propagate parse errors
@@ -142,10 +165,18 @@ def run_static_analysis(
     # Attach human summaries for LLM prompt construction
     combined["summaries"] = {
         "lod": summarize_lod(extract_lod(combined)),
+        "long_chain": summarize_long_chain(extract_long_chain(combined)),
         "cmo": summarize_cmo(extract_cmo(combined)),
         "srp": summarize_srp(extract_srp(combined)),
         "dry": summarize_dry(extract_dry(combined)),
         "lsp": summarize_lsp(extract_lsp(combined)),
+        "god_object":      summarize_god_object(extract_god_object(combined)),
+        "feature_envy":    summarize_feature_envy(extract_feature_envy(combined)),
+        "long_method":     summarize_long_method(extract_long_method(combined)),
+        "shotgun_surgery": summarize_shotgun_surgery(extract_shotgun_surgery(combined)),
+        "ocp":             summarize_ocp(extract_ocp(combined)),
+        "dip":             summarize_dip(extract_dip(combined)),
+        "information_expert": summarize_information_expert(extract_information_expert(combined)),
     }
 
     return combined
@@ -154,18 +185,34 @@ def run_static_analysis(
 def _make_empty_with_summaries() -> dict:
     empty = {
         "lod": {"violations": [], "count": 0},
+        "long_chain": {"violations": [], "count": 0},
         "cmo": {"violations": [], "count": 0},
         "srp": {"signals":    [], "count": 0},
         "dry": {"violations": [], "count": 0},
         "lsp": {"signals":    [], "count": 0},
+        "god_object":      {"violations": [], "count": 0},
+        "feature_envy":    {"violations": [], "count": 0},
+        "long_method":     {"violations": [], "count": 0},
+        "shotgun_surgery": {"violations": [], "count": 0},
+        "ocp":             {"violations": [], "count": 0},
+        "dip":             {"violations": [], "count": 0},
+        "information_expert": {"violations": [], "count": 0},
         "files_analyzed": 0,
     }
     empty["summaries"] = {
         "lod": "LoD: no files to analyze.",
+        "long_chain": "Long Chain: no files to analyze.",
         "cmo": "CMO: no files to analyze.",
         "srp": "SRP: no files to analyze.",
         "dry": "DRY: no files to analyze.",
         "lsp": "LSP: no files to analyze.",
+        "god_object":      "God Object: no files to analyze.",
+        "feature_envy":    "Feature Envy: no files to analyze.",
+        "long_method":     "Long Method: no files to analyze.",
+        "shotgun_surgery": "Shotgun Surgery: no files to analyze.",
+        "ocp":             "OCP: no files to analyze.",
+        "dip":             "DIP: no files to analyze.",
+        "information_expert": "Information Expert: no files to analyze.",
     }
     return empty
 

@@ -109,6 +109,8 @@ The hybrid pipeline adds deterministic static analysis before the LLM step.
 
 ```bash
 # Step 1 – Extract data + full file content for changed paths
+# IMPORTANT: Set GITHUB_TOKEN or diffs/full_files will be empty (403 rate limit)
+export GITHUB_TOKEN=ghp_your_token_here
 python extract_data_v2.py --input projects.csv --output dataset_v2.jsonl
 
 # Step 2 – Run hybrid analysis (static first, then LLM validates)

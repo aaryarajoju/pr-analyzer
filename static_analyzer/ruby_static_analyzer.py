@@ -32,10 +32,18 @@ _ANALYZER_RB  = _PARSERS_DIR / "static_analyzer.rb"
 # Empty template returned when analysis produces no results
 _EMPTY_FINDINGS: dict = {
     "lod": {"violations": [], "count": 0},
+    "long_chain": {"violations": [], "count": 0},
     "cmo": {"violations": [], "count": 0},
     "srp": {"signals":    [], "count": 0},
     "dry": {"violations": [], "count": 0},
     "lsp": {"signals":    [], "count": 0},
+    "god_object":      {"violations": [], "count": 0},
+    "feature_envy":    {"violations": [], "count": 0},
+    "long_method":     {"violations": [], "count": 0},
+    "shotgun_surgery": {"violations": [], "count": 0},
+    "ocp":             {"violations": [], "count": 0},
+    "dip":             {"violations": [], "count": 0},
+    "information_expert": {"violations": [], "count": 0},
 }
 
 
@@ -155,19 +163,13 @@ def analyze_ruby_files(
 
 
 def _normalize_schema(raw: dict) -> dict:
-    """Map static_analyzer.rb output keys to the run_all.py schema.
+    """Pass through static_analyzer.rb output. Ruby outputs lod, cmo directly.
 
-    static_analyzer.rb uses:  law_of_demeter, overuse_class_methods
-    run_all.py / detectors expect: lod, cmo
-    All other keys (srp, ocp, lsp, dip, isp, dry, information_expert,
-    encapsulation, parse_errors) are passed through unchanged.
+    All keys (srp, lod, cmo, ocp, lsp, dip, isp, dry, information_expert,
+    encapsulation, god_object, feature_envy, long_method, shotgun_surgery,
+    parse_errors) are passed through unchanged.
     """
-    normalized = dict(raw)
-    if "law_of_demeter" in normalized:
-        normalized["lod"] = normalized.pop("law_of_demeter")
-    if "overuse_class_methods" in normalized:
-        normalized["cmo"] = normalized.pop("overuse_class_methods")
-    return normalized
+    return dict(raw)
 
 
 def _remap_paths(findings: dict, path_map: dict[str, str]) -> dict:
