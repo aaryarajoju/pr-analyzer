@@ -116,21 +116,51 @@ Return JSON only:
 }}
 
 Definitions:
-Feature Envy: A method that calls methods on OTHER objects more than it uses its
-  own data (@ivars). It "envies" another class and may belong there instead.
+Feature Envy: A method that references another object's methods or attributes MORE
+than its own class's data (@ivars in Ruby, this.* in TS).
+Key test: compare external_references (other objects) to own_references (self/this).
+If external references > own references, the method likely belongs in the other class.
+Exclude infrastructure calls (logger, Rails helpers, framework DSL) from the count.
+Example: a method in OrderController that reads item.price, item.quantity, item.discount
+to compute a total - that logic belongs in Item or a calculator, not the controller.
 
-Long Method: Any method over 20 lines. Over 30 lines is almost always a violation.
-  Look specifically at methods ADDED in the diff.
+Long Method: A method exceeding 20 lines of logic (excluding blank lines, comments,
+and single-line end/closing braces). Over 30 lines is a strong violation.
+Consider complexity too: a 25-line method with deeply nested conditionals or
+multiple responsibilities is worse than a 25-line method with a single linear flow.
+DSL configuration blocks (e.g., Rails routes, RSpec describe) are NOT violations
+unless they contain significant branching logic.
 
-DRY: Identical or near-identical logic blocks that should be extracted into a
-  shared method or module. Look for copy-pasted conditionals or loops.
+DRY: Two or more code blocks with the same logical structure where only names or
+literals differ. Look for:
+(a) Copy-pasted conditionals (same if/elsif structure with different variables)
+(b) Methods that follow identical patterns (e.g., multiple update_X methods
+    that all validate, assign, save with the same flow)
+(c) Repeated rescue/error-handling blocks across methods
+The duplicated blocks must each contain at least 3 lines of meaningful logic
+(not just braces or closing keywords) to qualify. Single-line similarities
+(e.g., repeated attr_accessor calls) are NOT DRY violations.
 
-Information Expert: A method that manipulates data primarily owned by another class.
-  Different from Feature Envy: this is about data ownership, not method calls.
-  Ask: does this method know too much about another class's internals?
+Information Expert: A method that reads or manipulates data primarily OWNED by
+another class to produce a result that the other class should compute itself.
+Different from Feature Envy: Feature Envy is about where a method lives
+(it should move). Information Expert is about who should own the computation
+(the class that owns the data should expose the result).
+Example: OrderPrinter#total_weight that sums item.weight for each item -
+Order or Item should expose total_weight, not the printer.
+Key test: does this method need to know the internal structure of another
+class's data to do its job? If yes, the other class should provide a method instead.
 
-DIP: A high-level class directly calls ClassName.new inside its methods, creating
-  hard dependencies. Should use dependency injection or factories instead.
+DIP: A high-level module (controller, service, use-case) directly instantiates
+concrete low-level dependencies inside its methods using ClassName.new (Ruby)
+or new ClassName() (TypeScript), creating hard-wired coupling.
+Should use constructor injection, method injection, or factories instead.
+NOT a violation when:
+- Instantiating simple value objects, structs, or data containers (e.g., Hash.new, [])
+- Creating objects inside factory methods (that IS the factory pattern)
+- Instantiating within the composition root or initializer/constructor
+Only flag when the instantiation couples a high-level policy class to a
+concrete implementation that could reasonably be swapped or mocked.
 
 Report at most 3 violations per type. If you find more, report the 3 most severe.
 Include the full total count (N) for each type even if you only list 3 violations."""
