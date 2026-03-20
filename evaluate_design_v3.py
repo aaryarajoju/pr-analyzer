@@ -73,20 +73,74 @@ Return JSON only:
 }}
 
 Definitions:
-SRP: A class violates SRP if it has multiple unrelated responsibilities.
-  Signal: class name requires "and" to describe (e.g. "handles auth AND sends email").
+SRP: A class should have only one reason to change. Violations occur when a class
+  handles multiple distinct concerns that could vary independently.
+Key test: Can you describe the class's purpose without using "and" or "or"?
+  If the class name requires "and" (e.g., "UserManager AND EmailSender"), it's a violation.
+Signals:
+- Multiple groups of methods that operate on different data
+- Private methods that cluster around different responsibilities
+- Many dependencies injected that serve unrelated purposes
+Example: A ReportGenerator class that both formats data AND sends emails -
+  formatting and notification are separate concerns.
+NOT a violation: A class with many methods that all support a single responsibility
+  (e.g., a User class with many auth-related methods).
 
-God Object: A class that accumulates too many methods (15+) or instance variables (10+),
-  becoming a central hub that everything depends on.
+God Object: A class that has become an all-knowing, all-doing central hub with
+  excessive methods (15+) or instance variables (10+), making it a maintenance burden.
+Key test: Is this class the "go-to" place for everything? Does everyone depend on it?
+Signals:
+- Many unrelated methods (cohesion < 0.5)
+- High fan-in (many classes depend on it) AND high fan-out (it depends on many)
+- Large file size (500+ lines)
+- Frequently modified for unrelated features
+Example: A UserManager that handles authentication, authorization, profile updates,
+  preferences, notifications, AND audit logging.
+NOT a violation: A large class that is cohesive (e.g., an ORM model with many
+  domain-specific methods that all relate to the same entity).
 
-CMO: Class where 50%+ of methods use self.method_name (Ruby) or are static (TS).
-  Usually means procedural thinking disguised as OOP.
+CMO (Class Method Overuse): A class where 50%+ of methods are class-level (self.*
+  in Ruby, static in TS) rather than instance methods. This indicates procedural
+  thinking disguised as OOP - the class is just a namespace for functions.
+Key test: Are most methods operating on passed-in data rather than instance state?
+  If you could replace `ClassName.method(args)` with `function(args)`, it's procedural.
+Signals:
+- Few or no instance variables (@ivars)
+- Methods don't use `self` except for calling other class methods
+- The class is never instantiated, only used for method dispatch
+Example: A UtilityHelper with 20 static methods like format_date(), validate_email(),
+  sanitize_input() - these should be separate service objects or modules.
+NOT a violation: Factory classes (whose purpose IS class-level creation), or
+  classes with legitimate class methods alongside healthy instance methods.
 
-LSP: Subclass overrides parent method with different arity, raises new exceptions,
-  or returns incompatible types. Breaks substitutability.
+LSP (Liskov Substitution Principle): Subclasses must be substitutable for their
+  parent class without breaking client code. Violations occur when inheritance
+  breaks the "is-a" relationship.
+Key test: Can you use the subclass anywhere you use the parent, with no surprises?
+Signals:
+- Subclass method has different arity (parameter count) than parent
+- Subclass throws new exception types not in parent's contract
+- Subclass returns incompatible types (e.g., nil where parent returns object)
+- Subclass strengthens preconditions or weakens postconditions
+- Empty override that does nothing (refused bequest)
+Example: A Square class inheriting from Rectangle, but setWidth() also changes
+  height - violates Rectangle's behavior contract.
+NOT a violation: Subclass that adds optional parameters with defaults, or
+  returns a more specific subtype (covariant return).
 
-OCP: Uses long if/elsif/case or type-checking (is_a?, kind_of?) instead of
-  polymorphism. Adding new types requires modifying existing code.
+OCP (Open/Closed Principle): Software entities should be open for extension but
+  closed for modification. Violations occur when adding new types requires
+  modifying existing code rather than adding new code.
+Key test: When you add a new type/variant, do you edit existing methods or add new ones?
+Signals:
+- Long if/elsif/case chains checking object type or category
+- Type-checking using is_a?, kind_of?, instanceof, or typeof
+- Switch statements on enums that grow with each new variant
+- Modifying core classes to support new behaviors
+Example: A PaymentProcessor with `if type == 'credit' ... elsif type == 'paypal' ...`
+  - adding 'crypto' requires modifying this method instead of adding a CryptoPayment class.
+NOT a violation: Type-checking at system boundaries (e.g., input validation),
+  or when the set of types is truly fixed and won't change.
 
 Report at most 3 violations per type. If you find more, report the 3 most severe.
 Include the full total count (N) for each type even if you only list 3 violations."""
