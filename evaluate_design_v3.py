@@ -156,13 +156,19 @@ Return JSON only:
 }}
 
 Definitions:
-LoD: A method reaches through intermediate objects it doesn't own:
-  a.b.c where b is not self, not a parameter, not an @ivar of this class.
+LoD (Law of Demeter): A method should only call methods on: (1) self,
+  (2) parameters, (3) objects it creates, (4) its own @ivars.
+  Violation: reaching through objects (e.g., user.account.subscription.plan).
+  Fix: delegate methods (e.g., user.subscription_plan).
 
-Long Chain: Any chain of 5+ method calls regardless of ownership. Fragile code.
+Long Chain: Any chain of 5+ method calls (e.g., a.b.c.d.e.f), regardless of
+  ownership. Fragile: intermediate nil/null breaks the chain, hard to debug.
+  Exception: fluent/builder patterns returning self (e.g., query.where.order.limit).
 
-Shotgun Surgery: A single logical feature is scattered across many files,
-  requiring changes in multiple places for one conceptual modification.
+Shotgun Surgery: A single conceptual change requires edits across many files
+  (typically 4+). Signals: similar modifications in multiple classes (e.g., adding
+  a field touches model, controller, serializer, view), or same constant/string
+  added in many places. Indicates missing abstraction layer.
 
 Report at most 3 violations per type. If you find more, report the 3 most severe.
 Include the full total count (N) for each type even if you only list 3 violations."""
