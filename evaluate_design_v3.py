@@ -142,8 +142,8 @@ Example: A PaymentProcessor with `if type == 'credit' ... elsif type == 'paypal'
 NOT a violation: Type-checking at system boundaries (e.g., input validation),
   or when the set of types is truly fixed and won't change.
 
-Report at most 3 violations per type. If you find more, report the 3 most severe.
-Include the full total count (N) for each type even if you only list 3 violations."""
+Report at most 5 violations per type. If you find more, report the 5 most severe.
+Include the full total count (N) for each type even if you only list 5 violations."""
 
 # Batch B — Method-level: Feature Envy, Long Method, DRY, Information Expert, DIP
 BATCH_B_TYPES = ["feature_envy", "long_method", "dry", "information_expert", "dip"]
@@ -216,8 +216,8 @@ NOT a violation when:
 Only flag when the instantiation couples a high-level policy class to a
 concrete implementation that could reasonably be swapped or mocked.
 
-Report at most 3 violations per type. If you find more, report the 3 most severe.
-Include the full total count (N) for each type even if you only list 3 violations."""
+Report at most 5 violations per type. If you find more, report the 5 most severe.
+Include the full total count (N) for each type even if you only list 5 violations."""
 
 # Batch C — Coupling: LoD, Long Chain, Shotgun Surgery
 BATCH_C_TYPES = ["lod", "long_chain", "shotgun_surgery"]
@@ -254,8 +254,8 @@ Shotgun Surgery: A single conceptual change requires edits across many files
   a field touches model, controller, serializer, view), or same constant/string
   added in many places. Indicates missing abstraction layer.
 
-Report at most 3 violations per type. If you find more, report the 3 most severe.
-Include the full total count (N) for each type even if you only list 3 violations."""
+Report at most 5 violations per type. If you find more, report the 5 most severe.
+Include the full total count (N) for each type even if you only list 5 violations."""
 
 BATCH_PROMPTS: list[tuple[list[str], str]] = [
     (BATCH_A_TYPES, BATCH_A_PROMPT),

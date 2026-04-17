@@ -10,7 +10,7 @@ YEARS=(2016 2017 2018 2019 2020 2021 2022 2023 2024 2025)
 
 for YEAR in "${YEARS[@]}"; do
     INPUT="dataset-${YEAR}.jsonl"
-    OUTPUT="evaluations_v3-${YEAR}.jsonl"
+    OUTPUT="evaluations_v4-${YEAR}.jsonl"
     
     if [ ! -f "$INPUT" ]; then
         echo "Skipping $YEAR — $INPUT not found"
