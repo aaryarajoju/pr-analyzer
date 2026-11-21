@@ -1,0 +1,96 @@
+# Design / OO heuristic check on pull requests (static + optional LLM summary).
+#
+# Repo layout expected:
+#   scripts/github_pr_analyze.py, static_analyzer/, parsers/Gemfile
+#
+# To use on an application repo: vendor this tooling (submodule, copy, or reusable workflow).
+#
+# Secrets (optional, for LLM):
+#   DESIGN_CHECK_LLM_KEY  – API key (do not hardcode)
+#
+# Variables (optional):
+#   DESIGN_CHECK_LLM_URL   – default: OpenAI chat completions URL (override for other providers)
+#   DESIGN_CHECK_LLM_MODEL – default: gpt-4o-mini
+
+name: Design PR check
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+permissions:
+  contents: read
+  pull-requests: read
+
+concurrency:
+  group: design-check-${{ github.repository }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  analyze:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Ruby (for Prism static analyzer)
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "3.3"
+          bundler-cache: true
+          working-directory: parsers
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+          cache-dependency-path: requirements.txt
+
+      - name: Install Python dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run PR design check
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+          DESIGN_CHECK_LLM_URL: ${{ vars.DESIGN_CHECK_LLM_URL }}
+          DESIGN_CHECK_LLM_KEY: ${{ secrets.DESIGN_CHECK_LLM_KEY }}
+          DESIGN_CHECK_LLM_MODEL: ${{ vars.DESIGN_CHECK_LLM_MODEL }}
+        run: |
+          python scripts/github_pr_analyze.py \
+            --repo "${GITHUB_WORKSPACE}" \
+            --json-out pr-analyzer-report.json \
+            --md-out pr-analyzer-report.md
+
+      - name: Add markdown summary (Actions UI)
+        run: cat pr-analyzer-report.md >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Upload report artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: pr-analyzer-report
+          path: |
+            pr-analyzer-report.json
+            pr-analyzer-report.md
+
+      # Optional: post PR comment (needs pull-requests: write)
+      # - name: Comment on PR
+      #   if: github.event_name == 'pull_request'
+      #   uses: actions/github-script@v7
+      #   permissions:
+      #     pull-requests: write
+      #   with:
+      #     script: |
+      #       const fs = require('fs');
+      #       const body = fs.readFileSync('pr-analyzer-report.md', 'utf8');
+      #       github.rest.issues.createComment({
+      #         owner: context.repo.owner,
+      #         repo: context.repo.repo,
+      #         issue_number: context.issue.number,
+      #         body: '### Design check\n\n' + body.slice(0, 60000),
+      #       });
